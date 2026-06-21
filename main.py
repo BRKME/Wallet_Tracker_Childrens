@@ -729,21 +729,7 @@ class WalletTracker:
                 if prev_val > 0:
                     parts.append(f"мес: {self.format_change(current_value, prev_val)}")
             
-            # ATH — compare against PREVIOUS ATH (before this week's update)
-            prev_ath = 0
-            if ath_info and wallet_name in ath_info.get("wallet_prev_ath", {}):
-                prev_ath = ath_info["wallet_prev_ath"][wallet_name]
-            
-            if prev_ath > 0:
-                if current_value > prev_ath:
-                    # Genuinely a new high this week
-                    parts.append(f"🏆 ATH! (${current_value:,.0f})")
-                else:
-                    # Below previous ATH — show how far + the ATH value
-                    from_ath_pct = ((current_value - prev_ath) / prev_ath * 100)
-                    parts.append(f"от ATH ${prev_ath:,.0f}: {from_ath_pct:.0f}%")
-            # If prev_ath == 0, this is the first record ever — show nothing
-            
+            # ATH вынесен в строку «План · ATH» выше — здесь больше не дублируем.
             return " · ".join(parts) if parts else ""
         
         # Asset symbol normalization — group wrappers under canonical name
@@ -785,16 +771,34 @@ class WalletTracker:
             wallet_diff = wallet_fact - wallet_plan
             wallet_pct = (wallet_diff / wallet_plan * 100) if wallet_plan > 0 else 0
             wallet_sign = "+" if wallet_diff >= 0 else ""
-            
+
             msg += f"\n<b>{wallet_label(name)}:</b>\n"
-            msg += f"├ План: {self.format_number(wallet_plan)}\n"
-            msg += f"├ Факт: {self.format_number(wallet_fact)} ({wallet_sign}{wallet_pct:.1f}%)\n"
-            
-            # Dynamics
+            # Факт первым — это главное число
+            msg += f"├ Факт: {self.format_number(wallet_fact)}\n"
+
+            # Одна строка: План (дельта%) · ATH (дельта%)
+            ref_parts = []
+            if wallet_plan > 0:
+                ref_parts.append(
+                    f"План {self.format_number(wallet_plan)} "
+                    f"({wallet_sign}{wallet_pct:.0f}%)")
+            prev_ath = 0
+            if ath_info and name in ath_info.get("wallet_prev_ath", {}):
+                prev_ath = ath_info["wallet_prev_ath"][name]
+            if prev_ath > 0:
+                if wallet_fact > prev_ath:
+                    ref_parts.append(f"🏆 ATH! (${wallet_fact:,.0f})")
+                else:
+                    from_ath_pct = (wallet_fact - prev_ath) / prev_ath * 100
+                    ref_parts.append(f"ATH ${prev_ath:,.0f} ({from_ath_pct:.0f}%)")
+            if ref_parts:
+                msg += f"├ {' · '.join(ref_parts)}\n"
+
+            # Динамика нед/мес (ATH перенесён в строку выше) — отдельной строкой
             dynamics = get_wallet_dynamics(name, wallet_fact)
             if dynamics:
                 msg += f"├ {dynamics}\n"
-            
+
             # Asset split
             assets = format_assets(data.get('tokens', []))
             if assets:
