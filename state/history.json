@@ -6,20 +6,58 @@
       "plan_usd": 23909,
       "difference": -7885,
       "wallets": {
-        "Марта": {"total_usd": 5046, "plan_usd": 8838},
-        "Аркаша": {"total_usd": 8659, "plan_usd": 15071},
-        "Мама": {"total_usd": 2319, "plan_usd": 0}
+        "Марта": {
+          "total_usd": 5046,
+          "plan_usd": 8838
+        },
+        "Аркаша": {
+          "total_usd": 8659,
+          "plan_usd": 15071
+        },
+        "Мама": {
+          "total_usd": 2319,
+          "plan_usd": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "total_usd": 21322,
+      "plan_usd": 27938,
+      "difference": -6616,
+      "wallets": {
+        "Марта": {
+          "total_usd": 6299,
+          "plan_usd": 10256
+        },
+        "Аркаша": {
+          "total_usd": 11062,
+          "plan_usd": 17682
+        },
+        "Мама": {
+          "total_usd": 3961,
+          "plan_usd": 0
+        }
       }
     }
   ],
   "monthly_snapshots": {},
   "ath": {
-    "value": 16024,
-    "date": "2026-05-31"
+    "value": 21322,
+    "date": "2026-09-13"
   },
   "wallet_ath": {
-    "Марта": {"value": 5046, "date": "2026-05-31"},
-    "Аркаша": {"value": 8659, "date": "2026-05-31"},
-    "Мама": {"value": 3021, "date": "2026-06-14"}
+    "Марта": {
+      "value": 6299,
+      "date": "2026-09-13"
+    },
+    "Аркаша": {
+      "value": 11062,
+      "date": "2026-09-13"
+    },
+    "Мама": {
+      "value": 3961,
+      "date": "2026-09-13"
+    }
   }
 }
