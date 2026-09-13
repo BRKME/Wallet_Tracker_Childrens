@@ -25,6 +25,36 @@ DEBANK_API_KEY = os.getenv('DEBANK_API_KEY', '')
 
 # Files
 STATE_DIR = Path("state")
+
+# ============ SYMBOL NORMALIZATION ============
+
+# Явные алиасы обёрток -> канонический тикер
+ASSET_ALIASES = {
+    "WBTC": "BTC", "BTCB": "BTC", "TBTC": "BTC", "CBBTC": "BTC",
+    "BTC.B": "BTC", "RENBTC": "BTC", "SBTC": "BTC",
+    "WETH": "ETH", "STETH": "ETH", "WSTETH": "ETH", "WEETH": "ETH",
+    "WBNB": "BNB", "WHYPE": "HYPE", "WNEAR": "NEAR", "WMATIC": "MATIC",
+    "WAVAX": "AVAX", "WSOL": "SOL",
+}
+
+# Не-стейблы, в тикере которых встречается "USD" — исключения для эвристики ниже
+_NOT_STABLE = {"USUAL", "USDY.X"}
+
+
+def canonical_symbol(symbol: str) -> str:
+    """Привести тикер к каноническому виду: обёртки -> база, любые стейблы -> USD."""
+    sym = (symbol or "???").upper().strip()
+    sym = sym.replace("\u20ae", "T").replace("\u0024", "")  # USD₮0 -> USDT0
+    sym = ASSET_ALIASES.get(sym, sym)
+    if sym in _NOT_STABLE:
+        return sym
+    # USDT0, USDC.E, USDE, SUSDE, USDBC, USD+, FDUSD, PYUSD, USD1 ...
+    if "USD" in sym or sym in {"DAI", "SDAI", "BUSD", "TUSD", "FRAX", "MIM",
+                              "LUSD", "GHO", "CRVUSD", "EURC"}:
+        return "USD"
+    return sym
+
+
 HISTORY_FILE = STATE_DIR / "history.json"
 
 
@@ -544,8 +574,9 @@ class WalletTracker:
             if value < 1:  # Skip dust
                 continue
             
-            if is_whitelisted(symbol):
-                category = get_whitelist_category(symbol)
+            canon = canonical_symbol(symbol)
+            if is_whitelisted(canon):
+                category = get_whitelist_category(canon)
                 whitelisted.append({
                     'symbol': symbol,
                     'value': value,
@@ -744,24 +775,13 @@ class WalletTracker:
             # ATH вынесен в строку «План · ATH» выше — здесь больше не дублируем.
             return " · ".join(parts) if parts else ""
         
-        # Asset symbol normalization — group wrappers under canonical name
-        ASSET_ALIASES = {
-            "WBTC": "BTC", "BTCB": "BTC", "TBTC": "BTC", "CBBTC": "BTC",
-            "BTC.B": "BTC", "RENBTC": "BTC", "SBTC": "BTC",
-            "WETH": "ETH", "STETH": "ETH", "WSTETH": "ETH", "WEETH": "ETH",
-            "USDT": "USD", "USDC": "USD", "DAI": "USD", "BUSD": "USD",
-            "USDC.E": "USD", "USDT.E": "USD", "USDE": "USD", "USD+": "USD",
-            "FDUSD": "USD", "TUSD": "USD", "USDD": "USD",
-        }
-        
         # Helper to format asset split for a wallet
         def format_assets(tokens):
             if not tokens:
                 return ""
             by_symbol = {}
             for t in tokens:
-                sym = (t.get("symbol", "???") or "???").upper()
-                sym = ASSET_ALIASES.get(sym, sym)  # normalize wrappers
+                sym = canonical_symbol(t.get("symbol", "???"))
                 val = t.get("value", 0) or 0
                 if val > 0:
                     by_symbol[sym] = by_symbol.get(sym, 0) + val

@@ -22,7 +22,7 @@ WHITELIST = {
     "AI Narrative": ["tao"],
     "Privacy Hedge": ["zec"],  # Zcash
     # Stablecoins are always allowed
-    "Stablecoins": ["usdt", "usdc", "dai", "busd", "usd+", "usde"]
+    "Stablecoins": ["usd", "usdt", "usdc", "dai", "busd", "usd+", "usde"]
 }
 
 # Flatten whitelist for easy checking
