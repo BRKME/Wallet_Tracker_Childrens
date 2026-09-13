@@ -39,24 +39,664 @@
           "plan_usd": 0
         }
       }
+    },
+    {
+      "date": "2026-09-13",
+      "total_usd": 21401.82719717,
+      "plan_usd": 27938,
+      "difference": -6536.172802829999,
+      "wallets": {
+        "Марта": {
+          "address": "0x10082016a94920aBdf410CDB6f98c2Ead2c57340",
+          "total_usd": 6324.0,
+          "plan_usd": 10256,
+          "tokens": [
+            {
+              "symbol": "CRV",
+              "value": 1.6016027553394618
+            },
+            {
+              "symbol": "ZRO",
+              "value": 1.7367727898221257
+            },
+            {
+              "symbol": "WBTC",
+              "value": 0.2830675037
+            },
+            {
+              "symbol": "WETH",
+              "value": 2.476963623359814
+            },
+            {
+              "symbol": "DAI",
+              "value": 0.07556716762641787
+            },
+            {
+              "symbol": "ETH",
+              "value": 17.197469743676205
+            },
+            {
+              "symbol": "ZEC",
+              "value": 228.7032372423499
+            },
+            {
+              "symbol": "SOL",
+              "value": 1.4366783093315245
+            },
+            {
+              "symbol": "WBNB",
+              "value": 2.91749439282991
+            },
+            {
+              "symbol": "UNI",
+              "value": 213.3204340863245
+            },
+            {
+              "symbol": "BNB",
+              "value": 11.951017482811068
+            },
+            {
+              "symbol": "ZK",
+              "value": 0.6076288837216286
+            },
+            {
+              "symbol": "ETH",
+              "value": 0.3144918614903275
+            },
+            {
+              "symbol": "ETH",
+              "value": 3.69714496213524
+            },
+            {
+              "symbol": "USDT",
+              "value": 2.8665893424499997
+            },
+            {
+              "symbol": "MNT",
+              "value": 1.0775043469213361
+            },
+            {
+              "symbol": "USDC",
+              "value": 0.4546939387877575
+            },
+            {
+              "symbol": "ETH",
+              "value": 2.720712208512206
+            },
+            {
+              "symbol": "WETH",
+              "value": 0.16984497069018875
+            },
+            {
+              "symbol": "BERA",
+              "value": 0.08766081292058794
+            },
+            {
+              "symbol": "ETH",
+              "value": 1.8306899970174122
+            },
+            {
+              "symbol": "USDT",
+              "value": 2.8665893424499997
+            },
+            {
+              "symbol": "MNT",
+              "value": 1.0775043469213361
+            },
+            {
+              "symbol": "ETH",
+              "value": 3.6976197559131605
+            },
+            {
+              "symbol": "ZK",
+              "value": 0.6076288837216286
+            },
+            {
+              "symbol": "ETH",
+              "value": 0.3145322490814475
+            },
+            {
+              "symbol": "ETH",
+              "value": 1.8306899970174122
+            },
+            {
+              "symbol": "ZEC",
+              "value": 228.7032372423499
+            },
+            {
+              "symbol": "SOL",
+              "value": 1.4366783093315245
+            },
+            {
+              "symbol": "WBNB",
+              "value": 2.91749439282991
+            },
+            {
+              "symbol": "UNI",
+              "value": 213.3204340863245
+            },
+            {
+              "symbol": "BNB",
+              "value": 11.951017482811068
+            },
+            {
+              "symbol": "WETH",
+              "value": 0.16984497069018875
+            },
+            {
+              "symbol": "BERA",
+              "value": 0.08766081292058794
+            },
+            {
+              "symbol": "CRV",
+              "value": 1.6016027553394618
+            },
+            {
+              "symbol": "ZRO",
+              "value": 1.7367727898221257
+            },
+            {
+              "symbol": "WBTC",
+              "value": 0.2830675037
+            },
+            {
+              "symbol": "WETH",
+              "value": 2.476963623359814
+            },
+            {
+              "symbol": "DAI",
+              "value": 0.07556716762641787
+            },
+            {
+              "symbol": "ETH",
+              "value": 17.197469743676205
+            },
+            {
+              "symbol": "WBTC",
+              "value": 2657.0003970119
+            },
+            {
+              "symbol": "WETH",
+              "value": 182.50953144321122
+            },
+            {
+              "symbol": "USD₮0",
+              "value": 419.8409128404
+            },
+            {
+              "symbol": "SOL",
+              "value": 165.98438691182935
+            },
+            {
+              "symbol": "cbBTC",
+              "value": 246.45775209743857
+            },
+            {
+              "symbol": "tBTC",
+              "value": 384.18273132340954
+            },
+            {
+              "symbol": "USDC",
+              "value": 837.4978329927449
+            },
+            {
+              "symbol": "USDC",
+              "value": 30.106158815827015
+            },
+            {
+              "symbol": "SPCXc",
+              "value": 36.59442141048853
+            },
+            {
+              "symbol": "WBNB",
+              "value": 122.31535472894113
+            },
+            {
+              "symbol": "BTCB",
+              "value": 1643.8850090249016
+            },
+            {
+              "symbol": "USDT",
+              "value": 4.100817664172531
+            },
+            {
+              "symbol": "ZEC",
+              "value": 513.6338612713672
+            },
+            {
+              "symbol": "USDT",
+              "value": 804.916650069701
+            },
+            {
+              "symbol": "USDC",
+              "value": 0.4546939387877575
+            },
+            {
+              "symbol": "ETH",
+              "value": 2.720712208512206
+            }
+          ]
+        },
+        "Аркаша": {
+          "address": "0x305220d077474c5cab839E7C1cB3264Aca19f1B9",
+          "total_usd": 11097.0,
+          "plan_usd": 17682,
+          "tokens": [
+            {
+              "symbol": "ETH",
+              "value": 1.9853546765356067
+            },
+            {
+              "symbol": "WBTC",
+              "value": 0.4496685413
+            },
+            {
+              "symbol": "WETH",
+              "value": 1.9003360080153242
+            },
+            {
+              "symbol": "ETH",
+              "value": 8.532867689703023
+            },
+            {
+              "symbol": "ZEC",
+              "value": 716.6067343663557
+            },
+            {
+              "symbol": "NEAR",
+              "value": 28.682521128595745
+            },
+            {
+              "symbol": "USDT",
+              "value": 11.446731419819816
+            },
+            {
+              "symbol": "BTCB",
+              "value": 1.1314518777837446
+            },
+            {
+              "symbol": "WBNB",
+              "value": 3.1009452658561485
+            },
+            {
+              "symbol": "UNI",
+              "value": 46.46424117849978
+            },
+            {
+              "symbol": "BNB",
+              "value": 5.871734110715482
+            },
+            {
+              "symbol": "USDC",
+              "value": 0.41594518903780753
+            },
+            {
+              "symbol": "1INCH",
+              "value": 2.7729592800864613
+            },
+            {
+              "symbol": "USDT",
+              "value": 1.5253019323468027
+            },
+            {
+              "symbol": "ETH",
+              "value": 0.23887461718673267
+            },
+            {
+              "symbol": "ETH",
+              "value": 0.10324308227913354
+            },
+            {
+              "symbol": "USDT",
+              "value": 0.11411590347999999
+            },
+            {
+              "symbol": "WETH",
+              "value": 0.20853542023194846
+            },
+            {
+              "symbol": "MNT",
+              "value": 1.1567215108840818
+            },
+            {
+              "symbol": "USDC",
+              "value": 0.015063012602520505
+            },
+            {
+              "symbol": "AVAX",
+              "value": 0.8480290154096274
+            },
+            {
+              "symbol": "tBTC",
+              "value": 0.6344097632150228
+            },
+            {
+              "symbol": "WETH",
+              "value": 2.3544606662244263
+            },
+            {
+              "symbol": "USDC",
+              "value": 4.491215243048609
+            },
+            {
+              "symbol": "toby",
+              "value": 3.199569892449115
+            },
+            {
+              "symbol": "ETH",
+              "value": 12.620017285384007
+            },
+            {
+              "symbol": "BERA",
+              "value": 0.17859470620345647
+            },
+            {
+              "symbol": "ETH",
+              "value": 0.020643463980932402
+            },
+            {
+              "symbol": "ETH",
+              "value": 1.2395990604466176
+            },
+            {
+              "symbol": "ETH",
+              "value": 0.43806735841187316
+            },
+            {
+              "symbol": "POL",
+              "value": 2.8002238785003684
+            },
+            {
+              "symbol": "WBTC",
+              "value": 0.4496685413
+            },
+            {
+              "symbol": "WETH",
+              "value": 1.9003360080153242
+            },
+            {
+              "symbol": "ETH",
+              "value": 8.532867689703023
+            },
+            {
+              "symbol": "USDT",
+              "value": 0.11411590347999999
+            },
+            {
+              "symbol": "WETH",
+              "value": 0.20853542023194846
+            },
+            {
+              "symbol": "MNT",
+              "value": 1.1567215108840818
+            },
+            {
+              "symbol": "ETH",
+              "value": 0.43806735841187316
+            },
+            {
+              "symbol": "ETH",
+              "value": 1.2395990604466176
+            },
+            {
+              "symbol": "ETH",
+              "value": 1.9853546765356067
+            },
+            {
+              "symbol": "ETH",
+              "value": 0.10324308227913354
+            },
+            {
+              "symbol": "tBTC",
+              "value": 0.6344097632150228
+            },
+            {
+              "symbol": "WETH",
+              "value": 2.3544606662244263
+            },
+            {
+              "symbol": "USDC",
+              "value": 4.491215243048609
+            },
+            {
+              "symbol": "toby",
+              "value": 3.199569892449115
+            },
+            {
+              "symbol": "ETH",
+              "value": 12.620017285384007
+            },
+            {
+              "symbol": "USDC",
+              "value": 0.015063012602520505
+            },
+            {
+              "symbol": "AVAX",
+              "value": 0.8480290154096274
+            },
+            {
+              "symbol": "ETH",
+              "value": 0.020643463980932402
+            },
+            {
+              "symbol": "ZEC",
+              "value": 716.6067343663557
+            },
+            {
+              "symbol": "NEAR",
+              "value": 28.682521128595745
+            },
+            {
+              "symbol": "USDT",
+              "value": 11.446731419819816
+            },
+            {
+              "symbol": "BTCB",
+              "value": 1.1314518777837446
+            },
+            {
+              "symbol": "WBNB",
+              "value": 3.1009452658561485
+            },
+            {
+              "symbol": "UNI",
+              "value": 46.46424117849978
+            },
+            {
+              "symbol": "BNB",
+              "value": 5.871734110715482
+            },
+            {
+              "symbol": "USDC",
+              "value": 0.41594518903780753
+            },
+            {
+              "symbol": "1INCH",
+              "value": 2.7729592800864613
+            },
+            {
+              "symbol": "USDT",
+              "value": 1.5253019323468027
+            },
+            {
+              "symbol": "ETH",
+              "value": 0.23887461718673267
+            },
+            {
+              "symbol": "POL",
+              "value": 2.8002238785003684
+            },
+            {
+              "symbol": "BERA",
+              "value": 0.17859470620345647
+            },
+            {
+              "symbol": "WBTC",
+              "value": 3178.7007480409
+            },
+            {
+              "symbol": "USD₮0",
+              "value": 404.6601033756
+            },
+            {
+              "symbol": "GRAIL",
+              "value": 0.39436210871437755
+            },
+            {
+              "symbol": "STG",
+              "value": 0.7791180936453637
+            },
+            {
+              "symbol": "USDC",
+              "value": 110.67176355442132
+            },
+            {
+              "symbol": "MSFTc",
+              "value": 134.90770392709237
+            },
+            {
+              "symbol": "tBTC",
+              "value": 877.7707761414049
+            },
+            {
+              "symbol": "USDC",
+              "value": 1913.4934054699725
+            },
+            {
+              "symbol": "USDC",
+              "value": 91.45250947168951
+            },
+            {
+              "symbol": "SNDKc",
+              "value": 144.42194562780347
+            },
+            {
+              "symbol": "USDC",
+              "value": 75.06518060188935
+            },
+            {
+              "symbol": "SPCXc",
+              "value": 91.24268788337982
+            },
+            {
+              "symbol": "WBNB",
+              "value": 772.6165775032937
+            },
+            {
+              "symbol": "BTCB",
+              "value": 956.7466286929174
+            },
+            {
+              "symbol": "USDT",
+              "value": 394.57215597383566
+            },
+            {
+              "symbol": "ZEC",
+              "value": 120.67055870615309
+            },
+            {
+              "symbol": "USDT",
+              "value": 189.10651861089215
+            },
+            {
+              "symbol": "ZEC",
+              "value": 785.9268496067348
+            },
+            {
+              "symbol": "BTCB",
+              "value": 594.3526299049103
+            },
+            {
+              "symbol": "ZEC",
+              "value": 400.63655240029294
+            },
+            {
+              "symbol": "WBNB",
+              "value": 849.0009213099978
+            }
+          ]
+        },
+        "Мама": {
+          "addresses": {
+            "evm": "0xf45Eab0287b6465d8683dC0631936d6dFf5D429B",
+            "btc": "bc1qr90vs6m6dhc03m5x6jg0f6pnqdudxgq7gqs884"
+          },
+          "total_usd": 3980.82719717,
+          "plan_usd": 0,
+          "tokens": [
+            {
+              "symbol": "ETH",
+              "value": 0.0179982879502
+            },
+            {
+              "symbol": "ZEC",
+              "value": 1211.8852866676386
+            },
+            {
+              "symbol": "NEAR",
+              "value": 116.49364617085678
+            },
+            {
+              "symbol": "USDT",
+              "value": 335.67403127392964
+            },
+            {
+              "symbol": "BNB",
+              "value": 38.44391025608
+            },
+            {
+              "symbol": "HYPE",
+              "value": 728.6532293284499
+            },
+            {
+              "symbol": "ETH",
+              "value": 0.0179982879502
+            },
+            {
+              "symbol": "HYPE",
+              "value": 728.3560813676181
+            },
+            {
+              "symbol": "ZEC",
+              "value": 1211.8852866676386
+            },
+            {
+              "symbol": "NEAR",
+              "value": 116.54401091195962
+            },
+            {
+              "symbol": "USDT",
+              "value": 335.67403127392964
+            },
+            {
+              "symbol": "BNB",
+              "value": 38.44391025608
+            },
+            {
+              "symbol": "BTC",
+              "value": 1549.82719717
+            }
+          ]
+        }
+      }
     }
   ],
   "monthly_snapshots": {},
   "ath": {
-    "value": 21322,
+    "value": 21401.82719717,
     "date": "2026-09-13"
   },
   "wallet_ath": {
     "Марта": {
-      "value": 6299,
+      "value": 6324.0,
       "date": "2026-09-13"
     },
     "Аркаша": {
-      "value": 11062,
+      "value": 11097.0,
       "date": "2026-09-13"
     },
     "Мама": {
-      "value": 3961,
+      "value": 3980.82719717,
       "date": "2026-09-13"
     }
   }
