@@ -8,6 +8,8 @@ on:
 jobs:
   report:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout
@@ -38,11 +40,13 @@ jobs:
       - name: Commit history
         run: |
           git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          # Pull latest first (only state/, code already checked out)
-          git stash push -- state/ 2>/dev/null || true
-          git pull --rebase origin main || true
-          git stash pop 2>/dev/null || true
+          git config --local user.name "obed-bot"
+          # race-safe: stash state -> sync to remote -> pop -> commit -> push
+          git stash push -- state/ || true
+          git fetch origin main
+          git reset --hard origin/main
+          git stash pop || true
           git add state/
-          git diff --staged --quiet || git commit -m "data: weekly snapshot $(date +%Y-%m-%d)"
-          git push origin main || true
+          git diff --staged --quiet && echo "no state changes" && exit 0
+          git commit -m "data: weekly snapshot $(date +%Y-%m-%d)"
+          git push origin HEAD:main
