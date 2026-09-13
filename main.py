@@ -633,9 +633,9 @@ class WalletTracker:
         return record, ath_info
     
     def get_last_week_data(self, history: dict) -> dict:
-        """Get data from last week"""
-        if len(history["records"]) >= 2:
-            return history["records"][-2]
+        """Last saved record. Called BEFORE add_record, so records[-1] IS last week."""
+        if history["records"]:
+            return history["records"][-1]
         return None
     
     def get_month_start_data(self, history: dict) -> dict:
@@ -672,11 +672,11 @@ class WalletTracker:
     def format_change(self, current: float, previous: float) -> str:
         """Format change with absolute and percentage"""
         diff = current - previous
+        sign = "+" if diff >= 0 else "-"
         if previous > 0:
             pct = (diff / previous) * 100
-            sign = "+" if diff >= 0 else ""
-            return f"{sign}${diff:,.0f} ({sign}{pct:.1f}%)"
-        return f"+${diff:,.0f}"
+            return f"{sign}${abs(diff):,.0f} ({sign}{abs(pct):.1f}%)"
+        return f"{sign}${abs(diff):,.0f}"
     
     def is_first_week_of_month(self) -> bool:
         """Check if it's the first week of the month"""
@@ -713,6 +713,16 @@ class WalletTracker:
                 return f"{name} <i>({purpose})</i>"
             return name
         
+        # Helper: ATH fragment (one source of truth for all wallets)
+        def ath_fragment(name, wallet_fact):
+            prev_ath = ath_info.get("wallet_prev_ath", {}).get(name, 0) if ath_info else 0
+            if prev_ath <= 0:
+                return None
+            if wallet_fact > prev_ath:
+                return f"\U0001F3C6 ATH! (${wallet_fact:,.0f})"
+            from_ath_pct = (wallet_fact - prev_ath) / prev_ath * 100
+            return f"ATH ${prev_ath:,.0f} ({from_ath_pct:.0f}%)"
+
         # Helper to get wallet dynamics
         def get_wallet_dynamics(wallet_name, current_value):
             parts = []
@@ -782,15 +792,9 @@ class WalletTracker:
                 ref_parts.append(
                     f"План {self.format_number(wallet_plan)} "
                     f"({wallet_sign}{wallet_pct:.0f}%)")
-            prev_ath = 0
-            if ath_info and name in ath_info.get("wallet_prev_ath", {}):
-                prev_ath = ath_info["wallet_prev_ath"][name]
-            if prev_ath > 0:
-                if wallet_fact > prev_ath:
-                    ref_parts.append(f"🏆 ATH! (${wallet_fact:,.0f})")
-                else:
-                    from_ath_pct = (wallet_fact - prev_ath) / prev_ath * 100
-                    ref_parts.append(f"ATH ${prev_ath:,.0f} ({from_ath_pct:.0f}%)")
+            ath = ath_fragment(name, wallet_fact)
+            if ath:
+                ref_parts.append(ath)
             if ref_parts:
                 msg += f"├ {' · '.join(ref_parts)}\n"
 
@@ -812,6 +816,10 @@ class WalletTracker:
             wallet_fact = data['total_usd']
             msg += f"\n<b>{wallet_label(name)}:</b>\n"
             msg += f"├ Баланс: {self.format_number(wallet_fact)}\n"
+
+            ath = ath_fragment(name, wallet_fact)
+            if ath:
+                msg += f"├ {ath}\n"
             
             # Dynamics
             dynamics = get_wallet_dynamics(name, wallet_fact)
