@@ -594,6 +594,8 @@ class WalletTracker:
             "wallets": details
         }
         
+        # Idempotent: a re-run on the same day replaces that day's record
+        history["records"] = [r for r in history["records"] if r.get("date") != today]
         history["records"].append(record)
         
         # Keep only last 52 weeks
