@@ -25,6 +25,7 @@ DEBANK_API_KEY = os.getenv('DEBANK_API_KEY', '')
 
 # Files
 STATE_DIR = Path("state")
+TIER_LIST_IMAGE = Path("assets/tier_list.jpg")
 
 # ============ SYMBOL NORMALIZATION ============
 
@@ -898,6 +899,34 @@ class WalletTracker:
         except Exception as e:
             logger.error(f"Error sending to Telegram: {e}")
     
+    async def send_telegram_photo(self, photo_path: Path, caption: str = ""):
+        """Send photo to Telegram"""
+        if not photo_path.exists():
+            logger.warning(f"Photo not found: {photo_path}")
+            return
+        if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
+            logger.error("Telegram credentials not configured")
+            print(f"[photo] {photo_path}")  # Print for testing
+            return
+        
+        url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendPhoto"
+        form = aiohttp.FormData()
+        form.add_field("chat_id", str(TELEGRAM_CHAT_ID))
+        if caption:
+            form.add_field("caption", caption)
+            form.add_field("parse_mode", "HTML")
+        form.add_field("photo", photo_path.read_bytes(), filename=photo_path.name, content_type="image/jpeg")
+        
+        try:
+            async with self.session.post(url, data=form, timeout=30) as resp:
+                if resp.status == 200:
+                    logger.info("✅ Photo sent to Telegram")
+                else:
+                    error = await resp.text()
+                    logger.error(f"Telegram photo error: {error}")
+        except Exception as e:
+            logger.error(f"Error sending photo to Telegram: {e}")
+    
     # ============ MAIN ============
     
     async def run(self):
@@ -996,6 +1025,7 @@ class WalletTracker:
         # Build and send message
         message = self.build_message(record, last_week, month_start, whitelist_report, history, all_tokens, ath_info)
         await self.send_telegram(message)
+        await self.send_telegram_photo(TIER_LIST_IMAGE, "📊 <b>Crypto tier list</b>")
         
         logger.info("✅ Done!")
 
