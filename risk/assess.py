@@ -113,8 +113,10 @@ def _concentration(a, e, whitelist):
         cls = asset_class(asset)
         if cls == BTC and s > P.BTC_MAX_SHARE:
             a.add(DIVERS, YELLOW, f"BTC {pct(s)} кошелька", e.name)
-        elif cls == ALT and s >= P.ALT_YELLOW:
-            a.add(DIVERS, RED if s >= P.ALT_RED else YELLOW, f"{asset} {pct(s)} кошелька — один альткоин", e.name)
+    alts = e.share(e.by_class.get(ALT, 0))
+    if alts >= P.ALT_CLASS_YELLOW:
+        a.add(DIVERS, RED if alts >= P.ALT_CLASS_RED else YELLOW,
+              f"Альткоины {pct(alts)} кошелька (лимит {pct(P.ALT_CLASS_YELLOW)})", e.name)
     stable = e.share(e.by_class.get(STABLE, 0))
     if stable < 0.05:
         a.add(DIVERS, YELLOW, f"Стейблов {pct(stable)} — нет подушки на просадку", e.name)

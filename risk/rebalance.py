@@ -2,8 +2,10 @@
 
 Порядок важен:
   1. Плечо: если займ близок к ликвидации — сначала гасим долг.
-  2. Точечные лимиты: один альт > 7%, вне белого списка, акции > 5%.
+  2. Точечные лимиты: вне белого списка, акции > 5%.
   3. Классы: отклонение от цели больше полосы — двигаем к цели.
+     Альты докупаем в 2 сильнейших из белого списка, продаём самые слабые
+     из имеющихся (рейтинг — market.rank_alts).
 Цель по стейблам наклоняется по режиму OracAI, но только когда сам OracAI
 уверен (confidence ≥ порога) и его данные свежие.
 """
@@ -67,7 +69,7 @@ def deleverage_amount(health: float, collateral: float, debt: float,
     return max(0.0, min(debt, (target * debt - lt * collateral) / (target - lt)))
 
 
-def suggest(e, orac, whitelist: set) -> tuple[list, dict, str]:
+def suggest(e, orac, whitelist: set, alt_rank: list | None = None) -> tuple[list, dict, str]:
     """-> (предложения, целевые доли, пояснение к наклону)."""
     out = []
     targets, tilt_note = tilted_targets(e.name, orac)
@@ -94,8 +96,6 @@ def suggest(e, orac, whitelist: set) -> tuple[list, dict, str]:
         cut, why = 0.0, ""
         if cls == ALT and asset.lower() not in whitelist:
             cut, why = usd, "вне белого списка"
-        elif cls == ALT and usd / net > P.SINGLE_ALT_MAX:
-            cut, why = usd - P.SINGLE_ALT_MAX * net, f"один альт > {P.SINGLE_ALT_MAX:.0%}"
         if cut >= P.MIN_TRADE_USD:
             out.append(Suggestion(e.name, "SELL", asset, cut, f"{why} ({usd / net:.0%})"))
             cls_usd[cls] -= cut
@@ -117,12 +117,49 @@ def suggest(e, orac, whitelist: set) -> tuple[list, dict, str]:
         usd = abs(drift) * net
         if abs(drift) >= P.DRIFT_BAND and usd >= P.MIN_TRADE_USD:
             why = f"{cur:.0%} → цель {tgt:.0%}"
+            if cls == ALT and alt_rank:
+                out.extend(_alt_trades(e, drift, usd, why, alt_rank, whitelist))
+                continue
             if cur < -0.005:  # заметный минус, а не шум округления
                 why += f" (минус из-за долга в {CLASS_LABELS[cls]}: можно просто погасить этот долг)"
             elif cls == ALT and drift < 0:
-                why += f" (только белый список, каждый ≤ {P.SINGLE_ALT_MAX:.0%})"
+                why += " (только белый список)"
             out.append(Suggestion(e.name, "SELL" if drift > 0 else "BUY", CLASS_LABELS[cls], usd, why))
 
     order = {"REPAY": 0, "SELL": 1, "BUY": 2}
     out.sort(key=lambda s: (order[s.action], -s.usd))
     return out, targets, tilt_note
+
+
+def _mom(r) -> str:
+    t = r.trend
+    return f"30д {t.ret_30d:+.0%}, 90д {t.ret_90d:+.0%}" if t.ret_90d is not None else f"30д {t.ret_30d:+.0%}"
+
+
+def _alt_trades(e, drift, usd, why, alt_rank, whitelist) -> list:
+    """Докупка — поровну в ALTS_TO_BUY сильнейших; продажа — с самых слабых из имеющихся."""
+    if drift < 0:
+        top = alt_rank[: P.ALTS_TO_BUY]
+        part = usd / len(top)
+        if part < P.MIN_TRADE_USD:
+            top, part = top[:1], usd
+        return [Suggestion(e.name, "BUY", r.asset, part,
+                           f"альты {why}; сильнейший в белом списке ({_mom(r)})") for r in top]
+    order = {r.asset: i for i, r in enumerate(alt_rank)}
+    held = [(a, v) for a, v in e.by_asset.items()
+            if v > 0 and asset_class(a) == ALT and a.lower() in whitelist]
+    # Без графика — считаем самым слабым: продаём первым
+    held.sort(key=lambda av: -order.get(av[0], len(order)))
+    out, left = [], usd
+    for a, v in held:
+        if left < P.MIN_TRADE_USD:
+            break
+        cut = min(v, left)
+        if cut < P.MIN_TRADE_USD:
+            continue
+        r = next((x for x in alt_rank if x.asset == a), None)
+        note = (f"№{order[a] + 1} из {len(alt_rank)} в рейтинге ({_mom(r)})" if r
+                else "нет графика — продаём первым")
+        out.append(Suggestion(e.name, "SELL", a, cut, f"альты {why}; {note}"))
+        left -= cut
+    return out

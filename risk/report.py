@@ -94,17 +94,25 @@ def risk_section(a, max_per_cat: int = 4) -> str:
     return s
 
 
-def trend_section(trends: dict, family) -> str:
+def trend_section(trends: dict, family, alt_rank: list | None = None) -> str:
     if not trends:
         return "📈 <b>Тренды</b>\n└ графики не получены\n"
     s = "📈 <b>Тренды монет портфеля</b> (дневки)\n"
-    items = sorted(trends.values(), key=lambda t: -abs(family.by_asset.get(t.asset, 0)))
+    items = sorted((t for t in trends.values() if abs(family.share(family.by_asset.get(t.asset, 0))) >= 0.01),
+                   key=lambda t: -abs(family.by_asset.get(t.asset, 0)))
     for t in items:
         w = family.share(family.by_asset.get(t.asset, 0))
         rsi = f" · RSI {t.rsi14:.0f}" if t.rsi14 is not None else ""
         s += (f"{ARROW[t.label]} <b>{t.asset}</b> {pct(w)} портф. · 30д {pct(t.ret_30d, True)}"
               f" · от макс. {pct(t.dd_from_high, True)}{rsi}\n")
     s += "<i>▲ цена > SMA50 > SMA200 · ▼ наоборот · ◆ смешанный</i>\n"
+    if alt_rank:
+        s += "\n🏁 <b>Альты белого списка</b> (сила = среднее 30д и 90д)\n"
+        for i, r in enumerate(alt_rank):
+            t = r.trend
+            star = "⭐ " if i < 2 else ""
+            s += (f"{i + 1}. {star}{ARROW[t.label]} <b>{r.asset}</b> {pct(r.score, True)}"
+                  f" · 30д {pct(t.ret_30d, True)} · 90д {pct(t.ret_90d, True)}\n")
     return s
 
 

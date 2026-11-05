@@ -45,12 +45,12 @@ def test_stale_oracai_no_tilt():
 
 
 def test_suggestions_real_mama(snapshots):
-    """Мама: ZEC ~41% и стейблы 32%, BTC/ETH нет в EVM-части -> продать ZEC сверх лимита,
-    NEAR вне белого списка, докупить BTC/ETH."""
+    """Мама: альтов ~68% при цели 20%, BTC/ETH нет в EVM-части -> урезать альты,
+    NEAR вне белого списка, докупить BTC/ETH. Без рейтинга альтов — на уровне класса."""
     e = build_exposure(snapshots["mama"])
     s, _, _ = suggest(e, orac(conf=0.1), WL)
     acts = {(x.action, x.what) for x in s}
-    assert ("SELL", "ZEC") in acts
+    assert ("SELL", "Альткоины") in acts
     assert ("SELL", "NEAR") in acts
     assert ("BUY", "BTC") in acts
     assert all(x.usd >= P.MIN_TRADE_USD for x in s)

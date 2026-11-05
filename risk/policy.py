@@ -29,7 +29,7 @@ TILT_RISK_ON_STABLE = -0.05    # risk-on: −5 п.п. из стейблов в B
 # Ребалансировка
 DRIFT_BAND = 0.05              # не трогать класс, пока отклонение < 5 п.п.
 MIN_TRADE_USD = 50             # меньше — комиссии съедят смысл
-SINGLE_ALT_MAX = 0.07          # один альткоин не больше 7% кошелька
+ALTS_TO_BUY = 2                # докупка альтов — в N сильнейших из белого списка
 STOCK_MAX = 0.05               # токенизированные акции — не больше 5%
 
 # Плечо и ликвидации
@@ -40,7 +40,8 @@ LEVERAGE_YELLOW = 1.50         # залог / чистая стоимость
 
 # Концентрация
 BTC_MAX_SHARE = 0.75           # BTC — ядро, порог выше
-ALT_YELLOW, ALT_RED = 0.15, 0.25
+# Альткоины ведут себя как один класс — лимит на класс, не на монету
+ALT_CLASS_YELLOW, ALT_CLASS_RED = 0.30, 0.40
 PROTOCOL_MAX_SHARE = 0.50
 COUNTERPARTY_YELLOW, COUNTERPARTY_RED = 0.30, 0.50
 NON_WHITELIST_YELLOW = 0.05

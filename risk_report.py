@@ -25,7 +25,8 @@ from risk import report as R
 from risk.assess import assess
 from risk.exposure import build_exposure, combine
 from risk.llm import build_facts, commentary
-from risk.market import fetch_fear_greed, fetch_stable_pegs, fetch_trends
+from risk.assets import ALT, asset_class, canonical_symbol
+from risk.market import fetch_fear_greed, fetch_stable_pegs, fetch_trends, rank_alts
 from risk.oracai import fetch_oracai
 from risk.positions import fetch_btc, merge, parse_debank, scrape_debank
 from risk.protocols import fetch_llama, match_hacks, match_tvl
@@ -151,9 +152,11 @@ async def run(args) -> int:
 
         assets = [a for a, v in family.by_asset.items()
                   if a != "USD" and family.share(abs(v)) >= TREND_MIN_SHARE]
-        for core in ("BTC", "ETH"):
-            if core not in assets:
-                assets.append(core)
+        # Все альты белого списка — чтобы выбрать сильнейшие для докупки
+        wl_alts = {canonical_symbol(s) for s in WHITELIST_FLAT}
+        for a in ["BTC", "ETH"] + sorted(x for x in wl_alts if asset_class(x) == ALT):
+            if a not in assets:
+                assets.append(a)
         trends, trend_err = await fetch_trends(session, assets)
         errors += trend_err
         try:
@@ -162,10 +165,11 @@ async def run(args) -> int:
             pegs, _ = {}, errors.append(f"курсы стейблов: {e}")
         fg = await fetch_fear_greed(session)
 
+        alt_rank = rank_alts(trends, WHITELIST_FLAT)
         assessment = assess(exposures, family, orac, trends, pegs, fg, hacks, tvl, WHITELIST_FLAT)
         per_wallet = []
         for e in exposures:
-            sugg, targets, note = suggest(e, orac, WHITELIST_FLAT)
+            sugg, targets, note = suggest(e, orac, WHITELIST_FLAT, alt_rank)
             per_wallet.append((e, sugg, targets, note))
 
         llm_text = None
@@ -178,7 +182,7 @@ async def run(args) -> int:
             R.header(date, family, prev) + "\n" + R.market_section(orac, fg, pegs),
             R.risk_section(assessment),
             R.wallet_section(exposures, prev),
-            R.trend_section(trends, family),
+            R.trend_section(trends, family, alt_rank),
             R.rebalance_section(per_wallet),
             R.footer(errors, llm_text),
         ]

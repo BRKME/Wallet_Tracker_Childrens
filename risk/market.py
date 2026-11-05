@@ -32,6 +32,7 @@ class Trend:
     sma200: float | None
     ret_7d: float | None
     ret_30d: float | None
+    ret_90d: float | None
     vol_30d: float | None      # годовая, доля
     dd_from_high: float | None  # от максимума окна, доля (отрицательная)
     rsi14: float | None
@@ -66,8 +67,34 @@ def compute_trend(asset: str, closes: list) -> Trend | None:
     mu = sum(lr) / len(lr)
     vol = math.sqrt(sum((x - mu) ** 2 for x in lr) / (len(lr) - 1)) * math.sqrt(365)
 
-    return Trend(asset, p, sma(50), sma(200), ret(7), ret(30), vol,
+    return Trend(asset, p, sma(50), sma(200), ret(7), ret(30), ret(90), vol,
                  p / max(closes) - 1, rsi(closes, 14))
+
+
+@dataclass
+class AltRank:
+    asset: str
+    score: float          # средняя доходность за 30 и 90 дней
+    trend: Trend
+
+
+def rank_alts(trends: dict, whitelist: set) -> list:
+    """Альткоины белого списка от сильного к слабому.
+
+    Сила = среднее доходностей за 30 и 90 дней (импульс — описание графика,
+    не прогноз). Монеты в нисходящем тренде (цена < SMA50 < SMA200) идут
+    в конец списка при любом импульсе.
+    """
+    from .assets import ALT, asset_class
+    out = []
+    for a, t in trends.items():
+        if asset_class(a) != ALT or a.lower() not in whitelist:
+            continue
+        rets = [r for r in (t.ret_30d, t.ret_90d) if r is not None]
+        if rets:
+            out.append(AltRank(a, sum(rets) / len(rets), t))
+    out.sort(key=lambda r: (r.trend.label == "DOWN", -r.score))
+    return out
 
 
 def rsi(closes: list, n: int = 14) -> float | None:

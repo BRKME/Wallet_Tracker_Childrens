@@ -21,7 +21,7 @@ def run(snapshots, **kw):
 def test_real_portfolio_flags(snapshots):
     a = run(snapshots)
     texts = " | ".join(f.text for f in a.flags)
-    assert "ZEC" in texts  # у Мамы ZEC ~41%
+    assert "mama" in {f.wallet for f in a.of(DIVERS)} and "Альткоины" in texts  # у Мамы альтов ~68%
     assert a.level(DIVERS) == RED
     assert len(a.of(LEVERAGE)) >= 4  # 4 займа Aave
     assert a.level(SYSTEMIC) < YELLOW  # BEAR при уверенности 14% — не сигнал
