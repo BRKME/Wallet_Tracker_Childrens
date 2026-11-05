@@ -1,0 +1,17 @@
+name: Tests
+
+on:
+  push:
+    paths: ['risk/**', 'tests/**', 'risk_report.py', 'config.py', 'requirements.txt']
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install aiohttp pytest
+      - run: python -m pytest -q tests

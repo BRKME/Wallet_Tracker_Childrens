@@ -1,0 +1,56 @@
+name: Weekly Risk Report
+
+on:
+  schedule:
+    - cron: '0 8 * * 0'  # воскресенье 11:00 MSK — через час после недельного отчёта
+  workflow_dispatch:
+
+concurrency:
+  group: weekly-risk
+  cancel-in-progress: false
+
+jobs:
+  risk:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+          playwright install-deps
+
+      # Сначала тесты: красный тест — отчёт не отправляем
+      - name: Tests
+        run: python -m pytest -q tests
+
+      - name: Risk report
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python risk_report.py
+
+      - name: Commit risk state
+        if: always()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "obed-bot"
+          git stash push -- state/risk/ || true
+          git fetch origin main
+          git reset --hard origin/main
+          git stash pop || true
+          git add state/risk/
+          git diff --staged --quiet && echo "no risk state changes" && exit 0
+          git commit -m "data: risk snapshot $(date +%Y-%m-%d)"
+          git push origin HEAD:main

@@ -1,0 +1,751 @@
+{
+ "token_cache_balance_list": [
+  {
+   "symbol": "CRV",
+   "optimized_symbol": "CRV",
+   "chain": "op",
+   "amount": 4.514100212343466,
+   "price": 0.2559,
+   "id": "0x0994206dfe8de6ec6920ff4d779b0d950605fb53",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "WETH",
+   "optimized_symbol": "WETH",
+   "chain": "op",
+   "amount": 9.8625994151e-08,
+   "price": 2254.1,
+   "id": "0x4200000000000000000000000000000000000006",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ZRO",
+   "optimized_symbol": "ZRO",
+   "chain": "op",
+   "amount": 1.7060636442260566,
+   "price": 1.653564335256929,
+   "id": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ETH",
+   "optimized_symbol": "ETH",
+   "chain": "op",
+   "amount": 4.7488630966e-08,
+   "price": 2254.1,
+   "id": "op",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "FTW",
+   "optimized_symbol": "FTW",
+   "chain": "arb",
+   "amount": 15000,
+   "price": 0,
+   "id": "0x306fd3e7b169aa4ee19412323e1a5995b8c1a1f4",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "USSD",
+   "optimized_symbol": "USSD",
+   "chain": "arb",
+   "amount": 0.00525,
+   "price": 0.996961057480634,
+   "id": "0x33c88d4cac6ac34f77020915a2a88cd0417dc069",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "WETH",
+   "optimized_symbol": "WETH",
+   "chain": "arb",
+   "amount": 0.000994636682578871,
+   "price": 2249.9,
+   "id": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "DAI",
+   "optimized_symbol": "DAI",
+   "chain": "arb",
+   "amount": 0.07558697141292806,
+   "price": 1,
+   "id": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ETH",
+   "optimized_symbol": "ETH",
+   "chain": "arb",
+   "amount": 0.001269698520861287,
+   "price": 2254.74,
+   "id": "arb",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "XAUt",
+   "optimized_symbol": "XAUt",
+   "chain": "bsc",
+   "amount": 0.124618,
+   "price": 4090.52,
+   "id": "0x21caef8a43163eea865baee23b9c2e327696a3bf",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "bananas",
+   "optimized_symbol": "bananas",
+   "chain": "bsc",
+   "amount": 10,
+   "price": 2.916571127204426e-05,
+   "id": "0x50c2be4b3958c358e2654c6dabb4feb9e1cc7777",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "SOL",
+   "optimized_symbol": "SOL",
+   "chain": "bsc",
+   "amount": 0.01427683900756757,
+   "price": 89.73,
+   "id": "0x570a5d26f7765ecb712c0924e4de545b89fd43df",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "币安万岁",
+   "optimized_symbol": "币安万岁",
+   "chain": "bsc",
+   "amount": 520,
+   "price": 2.9168391264602527e-06,
+   "id": "0x654c1e81fa1016732c958ff8ee6397b9d0c54444",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "QUSHI",
+   "optimized_symbol": "QUSHI",
+   "chain": "bsc",
+   "amount": 17,
+   "price": 2.7041991987151335e-06,
+   "id": "0x94e042535d69e926723560472e1e2de611bb4444",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "MARCO",
+   "optimized_symbol": "MARCO",
+   "chain": "bsc",
+   "amount": 8.87178696365058,
+   "price": 0.00021259265477532811,
+   "id": "0x963556de0eb8138e97a85f0a86ee0acd159d210b",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "UNI",
+   "optimized_symbol": "UNI",
+   "chain": "bsc",
+   "amount": 2.7176976547571376,
+   "price": 6.831,
+   "id": "0xbf5140a22578168fd562dccf235e5d43a02ce9b1",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "STIMMY",
+   "optimized_symbol": "STIMMY",
+   "chain": "bsc",
+   "amount": 19,
+   "price": 2.9582920766499667e-06,
+   "id": "0xcb911f0759d58b17181c0aeeb2467957511e4444",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "MM72",
+   "optimized_symbol": "MM72",
+   "chain": "bsc",
+   "amount": 7.00072007,
+   "price": 3.306901756952212e-07,
+   "id": "0xdf9e1a85db4f985d5bb5644ad07d9d7ee5673b5e",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "GMT",
+   "optimized_symbol": "GMT",
+   "chain": "bsc",
+   "amount": 1,
+   "price": 2.5491177095846414e-05,
+   "id": "0xe2b16f618eb6016bc2625e98335f1844ee90236a",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "BNB",
+   "optimized_symbol": "BNB",
+   "chain": "bsc",
+   "amount": 0.006334043987152897,
+   "price": 692.49,
+   "id": "bsc",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ETH",
+   "optimized_symbol": "ETH",
+   "chain": "era",
+   "amount": 0.00012621122225,
+   "price": 2254.1,
+   "id": "era",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ZK",
+   "optimized_symbol": "ZK",
+   "chain": "era",
+   "amount": 62.93411535179995,
+   "price": 0.009391,
+   "id": "0x5a7d6b2f92c77fad6ccabd7ee0624e64907eaf3e",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "WETH",
+   "optimized_symbol": "WETH",
+   "chain": "era",
+   "amount": 2.07e-15,
+   "price": 2254.1,
+   "id": "0x5aea5775959fbc2557cc8789bc1bf90a239d9a91",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ETH",
+   "optimized_symbol": "ETH",
+   "chain": "eth",
+   "amount": 0.001483730556,
+   "price": 2254.1,
+   "id": "eth",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "USDT",
+   "optimized_symbol": "USDT",
+   "chain": "mnt",
+   "amount": 2.867593,
+   "price": 0.99852,
+   "id": "0x201eba5cc46d216ce6dc03f6a759e8e766e956ae",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "WETH",
+   "optimized_symbol": "WETH",
+   "chain": "mnt",
+   "amount": 7.81147346403e-07,
+   "price": 2254.1,
+   "id": "0xdeaddeaddeaddeaddeaddeaddeaddeaddead1111",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "MNT",
+   "optimized_symbol": "MNT",
+   "chain": "mnt",
+   "amount": 1.8970080156783535,
+   "price": 0.435715,
+   "id": "mnt",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "AVAX",
+   "optimized_symbol": "AVAX",
+   "chain": "avax",
+   "amount": 5.9325e-06,
+   "price": 8.3,
+   "id": "avax",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "Bonk",
+   "optimized_symbol": "Bonk",
+   "chain": "base",
+   "amount": 1,
+   "price": 1.874823694187336e-05,
+   "id": "0x2dc1c8be620b95cba25d78774f716f05b159c8b9",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "USDC",
+   "optimized_symbol": "USDC",
+   "chain": "base",
+   "amount": 0.454603,
+   "price": 1.0013016921998599,
+   "id": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ETH",
+   "optimized_symbol": "ETH",
+   "chain": "base",
+   "amount": 0.001088426411879028,
+   "price": 2254.74,
+   "id": "base",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "HIM",
+   "optimized_symbol": "HIM",
+   "chain": "bera",
+   "amount": 6.9,
+   "price": 0,
+   "id": "0x047b41a14f0bef681b94f570479ae7208e577a0c",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "WETH",
+   "optimized_symbol": "WETH",
+   "chain": "bera",
+   "amount": 6.8153079394645e-05,
+   "price": 2254.1,
+   "id": "0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "WBERA",
+   "optimized_symbol": "WBERA",
+   "chain": "bera",
+   "amount": 0.000598671383486204,
+   "price": 0.1152,
+   "id": "0x6969696969696969696969696969696969696969",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "BERA",
+   "optimized_symbol": "BERA",
+   "chain": "bera",
+   "amount": 0.4440770664670109,
+   "price": 0.1152,
+   "id": "bera",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "PONS",
+   "optimized_symbol": "PONS",
+   "chain": "hood",
+   "amount": 1.1208552732471693,
+   "price": 0.1919,
+   "id": "0x39dbed3a2bd333467115de45665cc57f813c4571",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "mShare",
+   "optimized_symbol": "mShare",
+   "chain": "hood",
+   "amount": 1,
+   "price": 5.221525963604023e-06,
+   "id": "0x95afb21e90e60237883ef92eee8099abe55e7fd8",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "DREAM",
+   "optimized_symbol": "DREAM",
+   "chain": "hood",
+   "amount": 621.1648,
+   "price": 0,
+   "id": "0xc44d2a1853710fa08f3aef9f3e6e0aac76db6c42",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ROBDOG",
+   "optimized_symbol": "ROBDOG",
+   "chain": "hood",
+   "amount": 157541.12719194754,
+   "price": 5.2327207018931254e-06,
+   "id": "0xea0c3c32101af8c98b8053e5c3ab0ce1692e5a30",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ETH",
+   "optimized_symbol": "ETH",
+   "chain": "hood",
+   "amount": 0.000532408768133354,
+   "price": 2254.1,
+   "id": "hood",
+   "is_verified": true,
+   "is_core": true
+  }
+ ],
+ "portfolio_project_list": [
+  {
+   "id": "arb_aave3",
+   "name": "Aave V3",
+   "chain": "arb",
+   "portfolio_item_list": [
+    {
+     "name": "Lending",
+     "stats": {
+      "asset_usd_value": 3581.2594374919613,
+      "debt_usd_value": 1941.8899199560574,
+      "net_usd_value": 1639.369517535904
+     },
+     "detail": {
+      "health_rate": 1.498765716339349,
+      "borrow_token_list": [
+       {
+        "symbol": "WETH",
+        "optimized_symbol": "WETH",
+        "chain": "arb",
+        "amount": 0.27449191065732914,
+        "price": 2249.9,
+        "id": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "USD₮0",
+        "optimized_symbol": "USD₮0",
+        "chain": "arb",
+        "amount": 613.962273,
+        "price": 0.99854,
+        "id": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "USDC",
+        "optimized_symbol": "USDC",
+        "chain": "arb",
+        "amount": 710.320064,
+        "price": 1.0013016921998599,
+        "id": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+        "is_verified": true,
+        "is_core": true
+       }
+      ],
+      "supply_token_list": [
+       {
+        "symbol": "WBTC",
+        "optimized_symbol": "WBTC",
+        "chain": "arb",
+        "amount": 0.03676655,
+        "price": 75902.67,
+        "id": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "WETH",
+        "optimized_symbol": "WETH",
+        "chain": "arb",
+        "amount": 1.531926376e-09,
+        "price": 2249.9,
+        "id": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "USD₮0",
+        "optimized_symbol": "USD₮0",
+        "chain": "arb",
+        "amount": 791.736057,
+        "price": 0.99854,
+        "id": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+        "is_verified": true,
+        "is_core": true
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "base_beefy",
+   "name": "Beefy",
+   "chain": "base",
+   "portfolio_item_list": [
+    {
+     "name": "Yield",
+     "stats": {
+      "asset_usd_value": 392.1736622758083,
+      "debt_usd_value": 0,
+      "net_usd_value": 392.1736622758083
+     },
+     "detail": {
+      "supply_token_list": [
+       {
+        "symbol": "SOL",
+        "optimized_symbol": "SOL",
+        "chain": "base",
+        "amount": 3.2449717104008884,
+        "price": 89.44,
+        "id": "0x311935cd80b76769bf2ecc9d8ab7635b2139cf82",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "cbBTC",
+        "optimized_symbol": "cbBTC",
+        "chain": "base",
+        "amount": 0.001341645527273925,
+        "price": 75983.85,
+        "id": "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf",
+        "is_verified": true,
+        "is_core": true
+       }
+      ]
+     }
+    },
+    {
+     "name": "Yield",
+     "stats": {
+      "asset_usd_value": 1247.19290614711,
+      "debt_usd_value": 0,
+      "net_usd_value": 1247.19290614711
+     },
+     "detail": {
+      "supply_token_list": [
+       {
+        "symbol": "tBTC",
+        "optimized_symbol": "tBTC",
+        "chain": "base",
+        "amount": 0.002075689845639211,
+        "price": 75976.2076051754,
+        "id": "0x236aa50979d5f3de3bd1eeb40e81137f22ab794b",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "USDC",
+        "optimized_symbol": "USDC",
+        "chain": "base",
+        "amount": 1088.0735266883066,
+        "price": 1.0013016921998599,
+        "id": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "is_verified": true,
+        "is_core": true
+       }
+      ]
+     }
+    },
+    {
+     "name": "Yield",
+     "stats": {
+      "asset_usd_value": 205.69618217513568,
+      "debt_usd_value": 0,
+      "net_usd_value": 205.69618217513568
+     },
+     "detail": {
+      "supply_token_list": [
+       {
+        "symbol": "USDC",
+        "optimized_symbol": "USDC",
+        "chain": "base",
+        "amount": 138.5732397312186,
+        "price": 1.0013016921998599,
+        "id": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "SPCXc",
+        "optimized_symbol": "SPCXc",
+        "chain": "base",
+        "amount": 0.5360671090027105,
+        "price": 124.87720588414457,
+        "id": "0xb2000000000000000000007b9fcbd005511acbd5",
+        "is_verified": true,
+        "is_core": true
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "bsc_aave3",
+   "name": "Aave V3",
+   "chain": "bsc",
+   "portfolio_item_list": [
+    {
+     "name": "Lending",
+     "stats": {
+      "asset_usd_value": 1744.3315785578461,
+      "debt_usd_value": 784.4009367160602,
+      "net_usd_value": 959.9306418417859
+     },
+     "detail": {
+      "health_rate": 1.6657647285442223,
+      "borrow_token_list": [
+       {
+        "symbol": "WBNB",
+        "optimized_symbol": "WBNB",
+        "chain": "bsc",
+        "amount": 0.38023345176339624,
+        "price": 692.49,
+        "id": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "USDC",
+        "optimized_symbol": "USDC",
+        "chain": "bsc",
+        "amount": 219.1603274201121,
+        "price": 1.0013016921998599,
+        "id": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "USDT",
+        "optimized_symbol": "USDT",
+        "chain": "bsc",
+        "amount": 302.08851622928717,
+        "price": 0.99854,
+        "id": "0x55d398326f99059ff775485246999027b3197955",
+        "is_verified": true,
+        "is_core": true
+       }
+      ],
+      "supply_token_list": [
+       {
+        "symbol": "WBNB",
+        "optimized_symbol": "WBNB",
+        "chain": "bsc",
+        "amount": 0.1700022921728855,
+        "price": 692.49,
+        "id": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "BTCB",
+        "optimized_symbol": "BTCB",
+        "chain": "bsc",
+        "amount": 0.021307650720617095,
+        "price": 76146.01,
+        "id": "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "USDT",
+        "optimized_symbol": "USDT",
+        "chain": "bsc",
+        "amount": 4.120121780227328,
+        "price": 0.99854,
+        "id": "0x55d398326f99059ff775485246999027b3197955",
+        "is_verified": true,
+        "is_core": true
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "bsc_beefy",
+   "name": "Beefy",
+   "chain": "bsc",
+   "portfolio_item_list": [
+    {
+     "name": "Farming",
+     "stats": {
+      "asset_usd_value": 1511.734063611588,
+      "debt_usd_value": 0,
+      "net_usd_value": 1511.734063611588
+     },
+     "detail": {
+      "supply_token_list": [
+       {
+        "symbol": "ZEC",
+        "optimized_symbol": "ZEC",
+        "chain": "bsc",
+        "amount": 0.7369550814438921,
+        "price": 1235.34,
+        "id": "0x1ba42e5193dfa8b03d15dd1b86a3113bbbef8eeb",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "USDT",
+        "optimized_symbol": "USDT",
+        "chain": "bsc",
+        "amount": 602.2232192007235,
+        "price": 0.99854,
+        "id": "0x55d398326f99059ff775485246999027b3197955",
+        "is_verified": true,
+        "is_core": true
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "hood_beefy",
+   "name": "Beefy",
+   "chain": "hood",
+   "portfolio_item_list": [
+    {
+     "name": "Farming",
+     "stats": {
+      "asset_usd_value": 322.51556236051323,
+      "debt_usd_value": 0,
+      "net_usd_value": 322.51556236051323
+     },
+     "detail": {
+      "supply_token_list": [
+       {
+        "symbol": "WETH",
+        "optimized_symbol": "WETH",
+        "chain": "hood",
+        "amount": 0.05195925106694184,
+        "price": 2254.74,
+        "id": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+        "is_verified": true,
+        "is_core": true
+       },
+       {
+        "symbol": "MSTR",
+        "optimized_symbol": "MSTR",
+        "chain": "hood",
+        "amount": 1.6070819001434975,
+        "price": 127.785,
+        "id": "0xec262a75e413fafd0df80480274532c79d42da09",
+        "is_verified": true,
+        "is_core": true
+       }
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}
