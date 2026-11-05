@@ -117,7 +117,7 @@ def suggest(e, orac, whitelist: set) -> tuple[list, dict, str]:
         usd = abs(drift) * net
         if abs(drift) >= P.DRIFT_BAND and usd >= P.MIN_TRADE_USD:
             why = f"{cur:.0%} → цель {tgt:.0%}"
-            if cur < 0:
+            if cur < -0.005:  # заметный минус, а не шум округления
                 why += f" (минус из-за долга в {CLASS_LABELS[cls]}: можно просто погасить этот долг)"
             elif cls == ALT and drift < 0:
                 why += f" (только белый список, каждый ≤ {P.SINGLE_ALT_MAX:.0%})"
