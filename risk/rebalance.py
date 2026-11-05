@@ -19,7 +19,7 @@ from .assets import ALT, BTC, CLASS_LABELS, ETH, STABLE, STOCK, asset_class
 @dataclass
 class Suggestion:
     wallet: str
-    action: str     # REPAY | SELL | BUY
+    action: str     # EXIT | REPAY | SELL | BUY
     what: str       # актив, класс или протокол
     usd: float
     reason: str
@@ -69,9 +69,18 @@ def deleverage_amount(health: float, collateral: float, debt: float,
     return max(0.0, min(debt, (target * debt - lt * collateral) / (target - lt)))
 
 
-def suggest(e, orac, whitelist: set, alt_rank: list | None = None) -> tuple[list, dict, str]:
+def lp_exits(wallet: str, lps: list) -> list:
+    """Закрытые хранилища (eol/paused) — забрать: доход 0%, стратегия выключена."""
+    return [Suggestion(wallet, "EXIT", f"{x.protocol} {x.name} ({x.chain})", x.value,
+                       f"хранилище {x.vault.status}, доход 0%")
+            for x in lps if x.wallet == wallet and x.vault and x.vault.status != "active"
+            and x.value >= P.MIN_TRADE_USD]
+
+
+def suggest(e, orac, whitelist: set, alt_rank: list | None = None,
+            lps: list | None = None) -> tuple[list, dict, str]:
     """-> (предложения, целевые доли, пояснение к наклону)."""
-    out = []
+    out = lp_exits(e.name, lps or [])
     targets, tilt_note = tilted_targets(e.name, orac)
     net = e.net_usd
     if net <= 0:
@@ -126,7 +135,7 @@ def suggest(e, orac, whitelist: set, alt_rank: list | None = None) -> tuple[list
                 why += " (только белый список)"
             out.append(Suggestion(e.name, "SELL" if drift > 0 else "BUY", CLASS_LABELS[cls], usd, why))
 
-    order = {"REPAY": 0, "SELL": 1, "BUY": 2}
+    order = {"EXIT": 0, "REPAY": 1, "SELL": 2, "BUY": 3}
     out.sort(key=lambda s: (order[s.action], -s.usd))
     return out, targets, tilt_note
 

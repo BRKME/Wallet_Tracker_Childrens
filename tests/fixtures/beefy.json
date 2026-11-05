@@ -1,0 +1,332 @@
+{
+ "vaults": [
+  {
+   "id": "aero-cow-base-mstrc-usdc-vault",
+   "name": "MSTRc-USDC",
+   "chain": "base",
+   "status": "active",
+   "type": "standard",
+   "platformId": "aero",
+   "assets": [
+    "MSTRc",
+    "USDC"
+   ],
+   "risks": {
+    "complex": true,
+    "curated": false,
+    "notAudited": false,
+    "notBattleTested": false,
+    "notCorrelated": true,
+    "notTimelocked": false,
+    "notVerified": false,
+    "synthAsset": false
+   },
+   "earnContractAddress": "0x005b8Aa7aB7bB665902d4E9509B9D4e9fB87BC2b",
+   "strategyTypeId": "pool"
+  },
+  {
+   "id": "aero-cow-base-usdc-spcxc-vault",
+   "name": "SPCXc-USDC",
+   "chain": "base",
+   "status": "active",
+   "type": "standard",
+   "platformId": "aero",
+   "assets": [
+    "SPCXc",
+    "USDC"
+   ],
+   "risks": {
+    "complex": true,
+    "curated": false,
+    "notAudited": false,
+    "notBattleTested": false,
+    "notCorrelated": true,
+    "notTimelocked": true,
+    "notVerified": false,
+    "synthAsset": false
+   },
+   "earnContractAddress": "0x08C60dEabCbD835E52d5BF8f8800959B54Db8774",
+   "strategyTypeId": "compounds"
+  },
+  {
+   "id": "pancakeswap-cow-base-sol-cbbtc-vault",
+   "name": "SOL-cbBTC",
+   "chain": "base",
+   "status": "active",
+   "type": "standard",
+   "platformId": "pancakeswap",
+   "assets": [
+    "SOL",
+    "cbBTC"
+   ],
+   "risks": {
+    "complex": true,
+    "curated": false,
+    "notAudited": false,
+    "notBattleTested": false,
+    "notCorrelated": true,
+    "notTimelocked": false,
+    "notVerified": false,
+    "synthAsset": false
+   },
+   "earnContractAddress": "0x82FC3Ba31f8dF868A1158Cf0f2FbF16E03B85c68",
+   "strategyTypeId": "compounds"
+  },
+  {
+   "id": "aero-cow-tbtc-usdc-vault",
+   "name": "tBTC-USDC",
+   "chain": "base",
+   "status": "eol",
+   "type": "standard",
+   "platformId": "aerodrome",
+   "assets": [
+    "tBTC",
+    "USDC"
+   ],
+   "risks": {
+    "updatedAt": 1765557014,
+    "complex": true,
+    "curated": false,
+    "notAudited": false,
+    "notBattleTested": false,
+    "notCorrelated": true,
+    "notTimelocked": false,
+    "notVerified": false,
+    "synthAsset": false
+   },
+   "earnContractAddress": "0x8a0DF555768Dc1BF4b719cB7494Ac472a1748923",
+   "strategyTypeId": "pool"
+  },
+  {
+   "id": "aero-cow-base-tslac-usdc-vault",
+   "name": "TSLAc-USDC",
+   "chain": "base",
+   "status": "active",
+   "type": "standard",
+   "platformId": "aero",
+   "assets": [
+    "TSLAc",
+    "USDC"
+   ],
+   "risks": {
+    "complex": true,
+    "curated": false,
+    "notAudited": false,
+    "notBattleTested": false,
+    "notCorrelated": true,
+    "notTimelocked": false,
+    "notVerified": false,
+    "synthAsset": false
+   },
+   "earnContractAddress": "0xD534d5fe383AE824333C9215DE93D8026eFEDEba",
+   "strategyTypeId": "pool"
+  },
+  {
+   "id": "aerodrome-cow-base-usdc-spcxc-vault",
+   "name": "SPCXc-USDC",
+   "chain": "base",
+   "status": "eol",
+   "type": "standard",
+   "platformId": "aerodrome",
+   "assets": [
+    "SPCXc",
+    "USDC"
+   ],
+   "risks": {
+    "complex": true,
+    "curated": false,
+    "notAudited": true,
+    "notBattleTested": false,
+    "notCorrelated": true,
+    "notTimelocked": true,
+    "notVerified": true,
+    "synthAsset": false
+   },
+   "earnContractAddress": "0xf638Acbb5Afa238af95E77f24963335018f51bCc",
+   "strategyTypeId": "pool"
+  },
+  {
+   "id": "uniswap-cow-bsc-zec-usdt-rp",
+   "name": "ZEC-USDT Reward Pool",
+   "chain": "bsc",
+   "status": "active",
+   "type": "gov",
+   "platformId": "uniswap",
+   "assets": [
+    "ZEC",
+    "USDT"
+   ],
+   "risks": {
+    "updatedAt": 1776357293,
+    "complex": true,
+    "curated": false,
+    "notAudited": false,
+    "notBattleTested": false,
+    "notCorrelated": true,
+    "notTimelocked": false,
+    "notVerified": false,
+    "synthAsset": false
+   },
+   "earnContractAddress": "0x6eD1412D73DDB56603ADB2D74aE409c833F2086a",
+   "strategyTypeId": "compounds"
+  },
+  {
+   "id": "uniswap-cow-bsc-zec-btcb-rp",
+   "name": "ZEC-BTCB Reward Pool",
+   "chain": "bsc",
+   "status": "active",
+   "type": "gov",
+   "platformId": "uniswap",
+   "assets": [
+    "ZEC",
+    "BTCB"
+   ],
+   "risks": {
+    "updatedAt": 1776357709,
+    "complex": true,
+    "curated": false,
+    "notAudited": false,
+    "notBattleTested": false,
+    "notCorrelated": true,
+    "notTimelocked": false,
+    "notVerified": false,
+    "synthAsset": false
+   },
+   "earnContractAddress": "0xC567F2171CD00636b236CD0a40B15df5539df290",
+   "strategyTypeId": "compounds"
+  },
+  {
+   "id": "uniswap-cow-robinhood-weth-mstr-rp",
+   "name": "MSTR-WETH Reward Pool",
+   "chain": "robinhood",
+   "status": "active",
+   "type": "gov",
+   "platformId": "uniswap",
+   "assets": [
+    "MSTRrh",
+    "WETH"
+   ],
+   "risks": {
+    "complex": true,
+    "curated": false,
+    "notAudited": true,
+    "notBattleTested": false,
+    "notCorrelated": true,
+    "notTimelocked": false,
+    "notVerified": false,
+    "synthAsset": false
+   },
+   "earnContractAddress": "0xC6A55D8E2a0700fFA760D1C8361A82Ec4DeE0Dfe",
+   "strategyTypeId": "compounds"
+  },
+  {
+   "id": "uniswap-cow-bsc-zec-wbnb-rp",
+   "name": "ZEC-WBNB Reward Pool",
+   "chain": "bsc",
+   "status": "active",
+   "type": "gov",
+   "platformId": "uniswap",
+   "assets": [
+    "ZEC",
+    "WBNB"
+   ],
+   "risks": {
+    "updatedAt": 1776358218,
+    "complex": true,
+    "curated": false,
+    "notAudited": false,
+    "notBattleTested": false,
+    "notCorrelated": true,
+    "notTimelocked": false,
+    "notVerified": false,
+    "synthAsset": false
+   },
+   "earnContractAddress": "0xd7beaa5dedD3647fC69beb4B18100A96dd085A34",
+   "strategyTypeId": "compounds"
+  }
+ ],
+ "apy": {
+  "aero-cow-tbtc-usdc-vault": {
+   "compoundingsPerYear": 365,
+   "beefyPerformanceFee": 0.095,
+   "totalApy": 0,
+   "vaultApr": 0,
+   "clmApr": 0
+  },
+  "uniswap-cow-bsc-zec-wbnb-rp": {
+   "compoundingsPerYear": 365,
+   "beefyPerformanceFee": 0,
+   "totalApy": 1.1184228786942447,
+   "clmApr": 0.7514443453072479,
+   "rewardPoolApr": 0
+  },
+  "uniswap-cow-bsc-zec-btcb-rp": {
+   "compoundingsPerYear": 365,
+   "beefyPerformanceFee": 0,
+   "totalApy": 0.3946777126444716,
+   "clmApr": 0.3328150000519004,
+   "rewardPoolApr": 0
+  },
+  "uniswap-cow-bsc-zec-usdt-rp": {
+   "compoundingsPerYear": 365,
+   "beefyPerformanceFee": 0,
+   "totalApy": 10.067876318850278,
+   "clmApr": 2.411981340605337,
+   "rewardPoolApr": 0
+  },
+  "pancakeswap-cow-base-sol-cbbtc-vault": {
+   "compoundingsPerYear": 365,
+   "beefyPerformanceFee": 0.095,
+   "totalApy": 0.24034356196827167,
+   "vaultApr": 0.016002000925000925,
+   "clmApr": 0.19944996983442034
+  },
+  "uniswap-cow-robinhood-weth-mstr-rp": {
+   "compoundingsPerYear": 365,
+   "beefyPerformanceFee": 0,
+   "totalApy": 0.23040630278237062,
+   "clmApr": 0.20740334622086873,
+   "rewardPoolApr": 0
+  },
+  "aerodrome-cow-base-usdc-spcxc-vault": {
+   "compoundingsPerYear": 365,
+   "beefyPerformanceFee": 0.095,
+   "totalApy": 0,
+   "vaultApr": 0,
+   "clmApr": 0
+  },
+  "aero-cow-base-tslac-usdc-vault": {
+   "compoundingsPerYear": 365,
+   "beefyPerformanceFee": 0.095,
+   "totalApy": 2.0068212246936445,
+   "vaultApr": 1.102545317336645,
+   "clmApr": 0
+  },
+  "aero-cow-base-mstrc-usdc-vault": {
+   "compoundingsPerYear": 365,
+   "beefyPerformanceFee": 0.095,
+   "totalApy": 2.3277099696541645,
+   "vaultApr": 1.2042666666847088,
+   "clmApr": 0
+  },
+  "aero-cow-base-usdc-spcxc-vault": {
+   "compoundingsPerYear": 365,
+   "beefyPerformanceFee": 0.095,
+   "totalApy": 3.117344524558675,
+   "vaultApr": 1.4179555540350601,
+   "clmApr": 0
+  }
+ },
+ "tvl": {
+  "uniswap-cow-bsc-zec-usdt-rp": 307114.5870470415,
+  "uniswap-cow-bsc-zec-btcb-rp": 109975.6055105936,
+  "uniswap-cow-bsc-zec-wbnb-rp": 80471.55262515592,
+  "uniswap-cow-robinhood-weth-mstr-rp": 29780.478472755633,
+  "aero-cow-base-mstrc-usdc-vault": 3927.393043194666,
+  "aero-cow-base-usdc-spcxc-vault": 123399.38940889877,
+  "pancakeswap-cow-base-sol-cbbtc-vault": 475737.44001631666,
+  "aero-cow-tbtc-usdc-vault": 15995.797933334594,
+  "aero-cow-base-tslac-usdc-vault": 56108.37021730576,
+  "aerodrome-cow-base-usdc-spcxc-vault": 23246.05200735936
+ }
+}

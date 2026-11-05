@@ -53,6 +53,11 @@ TVL_DROP_YELLOW, TVL_DROP_RED = -20.0, -40.0
 TREND_WEIGHT_MIN = 0.10        # тренд важен, если доля актива ≥ 10%
 CRASH_30D = -0.25
 
+# LP
+LP_SMALL_TVL = 50_000          # хранилище меньше — доход нестабилен, выход дорогой
+LP_MAX_TVL_SHARE = 0.10        # наша доля в хранилище
+LP_APR_ANOMALY = 1.00          # APR > 100% — почти всегда временные стимулы или плата за IL
+
 # Стейблы
 DEPEG_YELLOW, DEPEG_RED = 0.005, 0.02
 

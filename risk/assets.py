@@ -75,7 +75,7 @@ def _stock_ticker(raw: str, chain: str) -> str:
     up = raw.upper()
     if chain == "hood" and up in _STOCK_TICKERS:
         return up
-    for suffix in ("c", "x", "on"):
+    for suffix in ("c", "x", "on", "rh"):
         if raw.endswith(suffix) and raw[: -len(suffix)].upper() in _STOCK_TICKERS:
             return raw[: -len(suffix)].upper()
     return ""

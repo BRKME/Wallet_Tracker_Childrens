@@ -12,10 +12,10 @@ from .assets import ALT, BTC, STABLE, STOCK, asset_class
 RED, YELLOW, GREEN = 3, 2, 1
 ICON = {RED: "🔴", YELLOW: "🟡", GREEN: "🟢"}
 
-SYSTEMIC, LEVERAGE, PROTOCOL, COUNTERPARTY, DIVERS, TREND = (
-    "Системный риск", "Плечо и ликвидации", "Протоколы и взломы",
+SYSTEMIC, LEVERAGE, PROTOCOL, LP, COUNTERPARTY, DIVERS, TREND = (
+    "Системный риск", "Плечо и ликвидации", "Протоколы и взломы", "LP и доходность",
     "Контрагенты обёрток", "Диверсификация", "Тренды")
-CATEGORIES = [SYSTEMIC, LEVERAGE, PROTOCOL, COUNTERPARTY, DIVERS, TREND]
+CATEGORIES = [SYSTEMIC, LEVERAGE, PROTOCOL, LP, COUNTERPARTY, DIVERS, TREND]
 
 
 @dataclass
@@ -46,7 +46,7 @@ def pct(x, signed=False):
 
 
 def assess(exposures: list, family, orac, trends: dict, pegs: dict,
-           fear_greed, hacks: list, tvl: dict, whitelist: set) -> Assessment:
+           fear_greed, hacks: list, tvl: dict, whitelist: set, lps: list | None = None) -> Assessment:
     a = Assessment()
     _systemic(a, orac, pegs, fear_greed)
     for e in exposures:
@@ -56,7 +56,32 @@ def assess(exposures: list, family, orac, trends: dict, pegs: dict,
         _protocol_concentration(a, e)
     _protocols(a, hacks, tvl)
     _trends(a, family, trends)
+    _lp(a, lps or [])
     return a
+
+
+def _lp(a, lps):
+    for x in lps:
+        where = f"{x.protocol} {x.name} ({x.chain}, ${x.value:,.0f})"
+        v = x.vault
+        if v and v.status != "active":
+            a.add(LP, RED, f"{where}: хранилище {v.status} — доход 0%, вывести", x.wallet)
+            continue
+        for n in x.notes:
+            a.add(LP, YELLOW, f"{where}: {n}", x.wallet)
+        if v:
+            bad = [r for r in v.risks if r in ("нет аудита", "контракт не верифицирован")]
+            if bad:
+                a.add(LP, YELLOW, f"{where}: {', '.join(bad)}", x.wallet)
+            if v.tvl is not None and v.tvl < P.LP_SMALL_TVL:
+                a.add(LP, YELLOW, f"{where}: TVL хранилища всего ${v.tvl:,.0f}", x.wallet)
+            share = x.tvl_share
+            if share is not None and share > P.LP_MAX_TVL_SHARE:
+                a.add(LP, YELLOW, f"{where}: наша доля {pct(share)} хранилища", x.wallet)
+        if x.apr is not None and x.apr > P.LP_APR_ANOMALY:
+            a.add(LP, YELLOW, f"{where}: APR {pct(x.apr)} — аномально высокий, временный", x.wallet)
+        if x.apr is not None and x.il is not None and x.il > x.apr:
+            a.add(LP, YELLOW, f"{where}: IL ≥{pct(x.il)}/год больше APR {pct(x.apr)}", x.wallet)
 
 
 def _systemic(a, orac, pegs, fg):

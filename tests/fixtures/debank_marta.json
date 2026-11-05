@@ -480,6 +480,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x794a61358d6845594f94dc1db02a252b5b4814ad",
+      "chain": "arb"
      }
     }
    ]
@@ -519,6 +523,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x82fc3ba31f8df868a1158cf0f2fbf16e03b85c68",
+      "chain": "base"
      }
     },
     {
@@ -551,6 +559,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x8a0df555768dc1bf4b719cb7494ac472a1748923",
+      "chain": "base"
      }
     },
     {
@@ -583,6 +595,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0xf638acbb5afa238af95e77f24963335018f51bcc",
+      "chain": "base"
      }
     }
    ]
@@ -665,6 +681,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x6807dc923806fe8fd134338eabca509979a7e0cb",
+      "chain": "bsc"
      }
     }
    ]
@@ -704,6 +724,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x6ed1412d73ddb56603adb2d74ae409c833f2086a",
+      "chain": "bsc"
      }
     }
    ]
@@ -743,6 +767,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0xc6a55d8e2a0700ffa760d1c8361a82ec4dee0dfe",
+      "chain": "hood"
      }
     }
    ]

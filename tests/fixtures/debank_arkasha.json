@@ -620,6 +620,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x794a61358d6845594f94dc1db02a252b5b4814ad",
+      "chain": "arb"
      }
     }
    ]
@@ -649,6 +653,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x3caae25ee616f2c8e13c74da0813402eae3f496b",
+      "chain": "arb"
      }
     }
    ]
@@ -678,6 +686,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0xfbd849e6007f9bc3cc2d6eb159c045b8dc660268",
+      "chain": "arb"
      }
     }
    ]
@@ -739,6 +751,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x641c00a822e8b671738d32a431a4fb6074e5c79d",
+      "chain": "arb"
      }
     }
    ]
@@ -778,6 +794,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x005b8aa7ab7bb665902d4e9509b9d4e9fb87bc2b",
+      "chain": "base"
      }
     },
     {
@@ -810,6 +830,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x08c60deabcbd835e52d5bf8f8800959b54db8774",
+      "chain": "base"
      }
     },
     {
@@ -842,6 +866,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0xd534d5fe383ae824333c9215de93d8026efedeba",
+      "chain": "base"
      }
     }
    ]
@@ -893,6 +921,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0xeec2ad7bb37374229860265e644f4e2693b23fdd",
+      "chain": "bera"
      }
     }
    ]
@@ -965,6 +997,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x6807dc923806fe8fd134338eabca509979a7e0cb",
+      "chain": "bsc"
      }
     }
    ]
@@ -1004,6 +1040,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x6ed1412d73ddb56603adb2d74ae409c833f2086a",
+      "chain": "bsc"
      }
     },
     {
@@ -1036,6 +1076,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0xc567f2171cd00636b236cd0a40b15df5539df290",
+      "chain": "bsc"
      }
     },
     {
@@ -1068,6 +1112,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0xd7beaa5dedd3647fc69beb4b18100a96dd085a34",
+      "chain": "bsc"
      }
     }
    ]
@@ -1097,6 +1145,10 @@
         "is_core": true
        }
       ]
+     },
+     "pool": {
+      "id": "0x35fa164735182de50811e8e2e824cfb9b6118ac2",
+      "chain": "eth"
      }
     }
    ]
@@ -1128,6 +1180,10 @@
        }
       ],
       "supply_token_list": []
+     },
+     "pool": {
+      "id": "0x2f9bb73a8e98793e26cb2f6c4ad037bdf1c6b269",
+      "chain": "linea"
      }
     },
     {
@@ -1137,7 +1193,11 @@
       "debt_usd_value": 0,
       "net_usd_value": 0.006499060783808691
      },
-     "detail": {}
+     "detail": {},
+     "pool": {
+      "id": "0x9fa72ea96591e486ff065e7c8a89282dedfa6c12",
+      "chain": "linea"
+     }
     }
    ]
   },
@@ -1178,6 +1238,10 @@
         "is_core": null
        }
       ]
+     },
+     "pool": {
+      "id": "0x129e6b5dbc0ecc12f9e486c5bc9cdf1a6a80bc6a",
+      "chain": "eth"
      }
     }
    ]

@@ -48,6 +48,7 @@ class Position:
     debt_usd: float
     health_rate: float | None = None
     holdings: list = field(default_factory=list)
+    pool_id: str = ""     # адрес контракта пула/хранилища (для Beefy)
 
     @property
     def net_usd(self) -> float:
@@ -106,6 +107,7 @@ def parse_debank(name: str, cache_balance_list: list, project_list: list,
                 asset_usd=float(stats.get("asset_usd_value") or 0),
                 debt_usd=float(stats.get("debt_usd_value") or 0),
                 health_rate=_health(detail.get("health_rate"), stats),
+                pool_id=((item.get("pool") or {}).get("id") or "").lower(),
             )
             for key, sign, kind in (("supply_token_list", 1, "supply"),
                                     ("reward_token_list", 1, "reward"),

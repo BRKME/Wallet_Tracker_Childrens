@@ -7,7 +7,7 @@
 import asyncio
 import logging
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +36,7 @@ class Trend:
     vol_30d: float | None      # годовая, доля
     dd_from_high: float | None  # от максимума окна, доля (отрицательная)
     rsi14: float | None
+    closes: list = field(default=None, repr=False)  # для волатильности пар LP
 
     @property
     def label(self) -> str:
@@ -68,7 +69,7 @@ def compute_trend(asset: str, closes: list) -> Trend | None:
     vol = math.sqrt(sum((x - mu) ** 2 for x in lr) / (len(lr) - 1)) * math.sqrt(365)
 
     return Trend(asset, p, sma(50), sma(200), ret(7), ret(30), ret(90), vol,
-                 p / max(closes) - 1, rsi(closes, 14))
+                 p / max(closes) - 1, rsi(closes, 14), closes)
 
 
 @dataclass

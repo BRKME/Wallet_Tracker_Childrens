@@ -25,6 +25,7 @@ from risk import report as R
 from risk.assess import assess
 from risk.exposure import build_exposure, combine
 from risk.llm import build_facts, commentary
+from risk.lp import build_lp, fetch_beefy, summarize
 from risk.assets import ALT, asset_class, canonical_symbol
 from risk.market import fetch_fear_greed, fetch_stable_pegs, fetch_trends, rank_alts
 from risk.oracai import fetch_oracai
@@ -152,6 +153,12 @@ async def run(args) -> int:
 
         assets = [a for a, v in family.by_asset.items()
                   if a != "USD" and family.share(abs(v)) >= TREND_MIN_SHARE]
+        # Активы LP-пар — для оценки IL
+        for s in snaps:
+            for p in s.positions:
+                for h in p.holdings:
+                    if h.kind == "supply" and h.asset_class not in ("STABLE", "STOCK") and h.canonical not in assets:
+                        assets.append(h.canonical)
         # Все альты белого списка — чтобы выбрать сильнейшие для докупки
         wl_alts = {canonical_symbol(s) for s in WHITELIST_FLAT}
         for a in ["BTC", "ETH"] + sorted(x for x in wl_alts if asset_class(x) == ALT):
@@ -166,22 +173,31 @@ async def run(args) -> int:
         fg = await fetch_fear_greed(session)
 
         alt_rank = rank_alts(trends, WHITELIST_FLAT)
-        assessment = assess(exposures, family, orac, trends, pegs, fg, hacks, tvl, WHITELIST_FLAT)
+        beefy, beefy_err = await fetch_beefy(session)
+        errors += beefy_err
+        lps = build_lp(snaps, beefy, trends)
+        lp_sum = summarize(lps)
+        assessment = assess(exposures, family, orac, trends, pegs, fg, hacks, tvl, WHITELIST_FLAT, lps=lps)
         per_wallet = []
         for e in exposures:
-            sugg, targets, note = suggest(e, orac, WHITELIST_FLAT, alt_rank)
+            sugg, targets, note = suggest(e, orac, WHITELIST_FLAT, alt_rank, lps)
             per_wallet.append((e, sugg, targets, note))
 
         llm_text = None
         if not args.no_llm:
-            llm_text = await commentary(build_facts(family, exposures, assessment, orac,
-                                                    trends, per_wallet, hacks))
+            facts = build_facts(family, exposures, assessment, orac, trends, per_wallet, hacks)
+            facts["lp"] = [{"wallet": x.wallet, "pool": f"{x.protocol} {x.name} ({x.chain})",
+                            "usd": round(x.value), "apr": x.apr, "il_min": x.il,
+                            "status": x.vault.status if x.vault else None,
+                            "vault_tvl": x.vault.tvl if x.vault else None} for x in lps]
+            llm_text = await commentary(facts)
 
         prev = load_prev()
         sections = [
             R.header(date, family, prev) + "\n" + R.market_section(orac, fg, pegs),
             R.risk_section(assessment),
             R.wallet_section(exposures, prev),
+            R.lp_section(lps, lp_sum),
             R.trend_section(trends, family, alt_rank),
             R.rebalance_section(per_wallet),
             R.footer(errors, llm_text),

@@ -7,7 +7,7 @@ from .assets import CLASS_LABELS
 
 TG_LIMIT = 4000
 ARROW = {"UP": "▲", "DOWN": "▼", "MIXED": "◆", "N/A": "·"}
-ACTION = {"REPAY": "💳 Погасить", "SELL": "➖ Продать", "BUY": "➕ Докупить"}
+ACTION = {"EXIT": "🚪 Вывести", "REPAY": "💳 Погасить", "SELL": "➖ Продать", "BUY": "➕ Докупить"}
 
 
 def money(x: float) -> str:
@@ -139,6 +139,44 @@ def wallet_section(exposures: list, prev: dict | None) -> str:
                 dh = f" (было {ph:.2f})" if ph and abs(ph - loan.health) >= 0.05 else ""
                 s += f"├ 💳 {escape(loan.protocol)} {loan.chain}: HF {loan.health:.2f}{dh}, {liq}\n"
         s += f"└ Плечо {e.leverage:.2f}×\n"
+    return s
+
+
+def lp_section(lps: list, summary: dict) -> str:
+    if not lps:
+        return ""
+    s = "🌾 <b>LP-позиции</b>\n"
+    s += (f"В LP {money(summary['value'])} · средний APR {pct(summary['apr'])}"
+          f" · ≈{money(summary['income_year'])}/год, если APR удержится")
+    if summary["il_covered_value"]:
+        s += f" · IL ≥{money(summary['il_year'])}/год"
+    s += "\n"
+    wallets = []
+    for x in lps:
+        if x.wallet not in wallets:
+            wallets.append(x.wallet)
+    for w in wallets:
+        rows = sorted((x for x in lps if x.wallet == w), key=lambda x: -x.value)
+        s += f"\n<b>{escape(w)}</b>\n"
+        for i, x in enumerate(rows):
+            br = "└" if i == len(rows) - 1 else "├"
+            v = x.vault
+            if v and v.status != "active":
+                icon = "⛔"
+            elif (v and (set(v.risks) & {"нет аудита", "контракт не верифицирован"} or (v.tvl or 0) < 50_000)) \
+                    or x.notes or (x.apr is not None and x.il is not None and x.il > x.apr) \
+                    or (x.apr is not None and x.apr > 1.0):
+                icon = "⚠️"
+            else:
+                icon = "✅"
+            apr = f"APR {pct(x.apr)}" if x.apr is not None else "APR н/д"
+            il = f" · IL ≥{pct(x.il)}" if x.il else ""
+            tvl = f" · TVL {money(v.tvl)}" if v and v.tvl is not None else ""
+            st = f" · <b>{v.status.upper()}</b>" if v and v.status != "active" else ""
+            s += (f"{br} {icon} {escape(x.protocol)} {escape(x.name)} ({x.chain}) {money(x.value)}"
+                  f" · {apr}{il}{tvl}{st}\n")
+    s += "<i>APR — простой, без реинвеста. IL — нижняя оценка для полного диапазона (σ²/8),"
+    s += " у концентрированной ликвидности потери больше.</i>\n"
     return s
 
 
