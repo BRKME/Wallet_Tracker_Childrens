@@ -57,8 +57,18 @@ def _shift_to_stable(t: dict, amount: float) -> dict:
     return t
 
 
+def repay_amount(health: float, collateral: float, debt: float,
+                 target: float = P.HF_RESTORE) -> float:
+    """Сколько долга погасить СВОИМИ ДЕНЬГАМИ (стейблы с кошелька), чтобы HF стал target.
+    lt = HF·D/C;  lt·C/(D−R) = T  =>  R = D − lt·C/T."""
+    if debt <= 0 or collateral <= 0 or health >= target:
+        return 0.0
+    lt = health * debt / collateral
+    return max(0.0, min(debt, debt - lt * collateral / target))
+
+
 def deleverage_amount(health: float, collateral: float, debt: float,
-                      target: float = P.HF_TARGET) -> float:
+                      target: float = P.HF_RESTORE) -> float:
     """Сколько долга погасить ВЫВОДОМ ЗАЛОГА, чтобы HF стал target.
     lt = HF·D/C;  lt(C−R)/(D−R) = T  =>  R = (T·D − lt·C)/(T − lt)."""
     if debt <= 0 or collateral <= 0 or health >= target:
@@ -86,15 +96,16 @@ def suggest(e, orac, whitelist: set, alt_rank: list | None = None,
     if net <= 0:
         return out, targets, tilt_note
 
-    # 1. Плечо
+    # 1. Займы: правило HF ≥ HF_FLOOR
     for loan in e.loans:
-        d = loan.drop_to_liquidation
-        risky = loan.health < P.HF_YELLOW or (d is not None and d < P.LIQ_DROP_YELLOW)
-        if risky:
-            r = deleverage_amount(loan.health, loan.collateral_usd, loan.debt_usd)
-            if r >= P.MIN_TRADE_USD:
-                out.append(Suggestion(e.name, "REPAY", f"{loan.protocol} ({loan.chain})", r,
-                                      f"HF {loan.health:.2f} → {P.HF_TARGET:.1f}"))
+        if loan.health >= P.HF_FLOOR:
+            continue
+        r = repay_amount(loan.health, loan.collateral_usd, loan.debt_usd)
+        rc = deleverage_amount(loan.health, loan.collateral_usd, loan.debt_usd)
+        if r > 0:
+            out.append(Suggestion(e.name, "REPAY", f"{loan.protocol} ({loan.chain})", max(r, 1.0),
+                                  f"HF {loan.health:.3f} < {P.HF_FLOOR:.2f} → {P.HF_RESTORE:.2f};"
+                                  f" стейблами ~${r:,.0f} или выводом залога ~${rc:,.0f}"))
 
     # 2. Точечные лимиты (виртуально применяем, чтобы классы считались после них)
     cls_usd = {k: e.by_class.get(k, 0.0) for k in CLASS_LABELS}

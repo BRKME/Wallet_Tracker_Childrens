@@ -117,13 +117,16 @@ def _leverage(a, e):
         where = f"{loan.protocol} ({loan.chain})"
         d = loan.drop_to_liquidation
         lvl = GREEN
-        if loan.health < P.HF_RED or (d is not None and d < P.LIQ_DROP_RED):
+        if loan.health < P.HF_FLOOR or (d is not None and d < P.LIQ_DROP_RED):
             lvl = RED
-        elif loan.health < P.HF_YELLOW or (d is not None and d < P.LIQ_DROP_YELLOW):
+        elif loan.health < P.HF_WATCH or (d is not None and d < P.LIQ_DROP_YELLOW):
             lvl = YELLOW
         tail = (f"ликвидация при падении крипты на ~{pct(d)}" if d is not None and d < 0.95
                 else "падение цены почти не опасно")
-        a.add(LEVERAGE, lvl, f"{where}: HF {loan.health:.2f}, долг ${loan.debt_usd:,.0f} — {tail}", e.name)
+        below = loan.health < P.HF_FLOOR
+        hf = f"{loan.health:.3f}" if below else f"{loan.health:.2f}"
+        rule = f" (ниже порога {P.HF_FLOOR:.2f} — гасить)" if below else ""
+        a.add(LEVERAGE, lvl, f"{where}: HF {hf}{rule}, долг ${loan.debt_usd:,.0f} — {tail}", e.name)
     if e.leverage >= P.LEVERAGE_YELLOW:
         a.add(LEVERAGE, YELLOW, f"Плечо {e.leverage:.2f}× (активы ${e.gross_usd:,.0f} при своих ${e.net_usd:,.0f})", e.name)
 
