@@ -68,7 +68,7 @@ def test_sell_alts_takes_weakest_held_first(snapshots):
     assert sells and sells[0].what == "ZEC"
     assert "№2 из 2" in sells[0].reason
     total_alt_sell = sum(x.usd for x in s if x.action == "SELL" and x.what in ("HYPE", "ZEC", "NEAR", "UNI", "BNB"))
-    excess = e.by_class["ALT"] - P.targets_for("Мама")["ALT"] * e.net_usd
+    excess = e.by_class["ALT"] - P.targets_for(e.name)["ALT"] * e.net_usd
     assert total_alt_sell == pytest.approx(excess, rel=0.05)
 
 
@@ -90,8 +90,8 @@ def test_alt_class_flag_not_single_alt(snapshots):
     texts = [f.text for f in a.of(DIVERS)]
     assert not any("один альткоин" in t for t in texts)
     assert any(t.startswith("Альткоины") for t in texts)
-    assert a.level(DIVERS) == RED  # ~68% > ALT_CLASS_RED
+    assert a.level(DIVERS) == RED  # ~68% > цель 20% + 20 п.п.
 
 
 def test_alt_class_thresholds():
-    assert P.targets_for("x")["ALT"] < P.ALT_CLASS_YELLOW < P.ALT_CLASS_RED
+    assert 0 < P.ALT_CLASS_MARGIN_YELLOW < P.ALT_CLASS_MARGIN_RED
