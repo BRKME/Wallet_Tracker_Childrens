@@ -48,7 +48,7 @@ def test_below_floor_repays_to_restore(snapshots):
     e = with_hf(snapshots, 1.45)
     r = repays(e)
     assert len(r) == 2 and r[0].action == "REPAY"
-    assert "1.50" in r[0].reason and "1.65" in r[0].reason
+    assert "1.455" in r[0].reason and "1.65" in r[0].reason  # порог с допуском 3% (08.11)
 
 
 def test_between_floor_and_restore_no_repay(snapshots):

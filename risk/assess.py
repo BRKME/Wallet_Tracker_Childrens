@@ -91,7 +91,13 @@ def _systemic(a, orac, pegs, fg):
         conf = orac.confidence or 0
         if orac.is_stale():
             a.add(SYSTEMIC, YELLOW, f"Данные OracAI устарели ({orac.age_hours() or 0:.0f} ч)")
-        if orac.tail_risk or orac.risk_state in ("CRISIS", "TAIL"):
+        if conf < P.ORACAI_MIN_CONFIDENCE:
+            signal = ", ".join(x for x in (
+                orac.regime, orac.risk_state,
+                "хвостовой риск" if orac.tail_risk else "") if x)
+            a.add(SYSTEMIC, GREEN, f"OracAI: {signal}, уверенность {pct(conf)} < "
+                  f"{pct(P.ORACAI_MIN_CONFIDENCE)} — не ориентируемся, базовый сценарий")
+        elif orac.tail_risk or orac.risk_state in ("CRISIS", "TAIL"):
             a.add(SYSTEMIC, RED, f"OracAI: хвостовой риск ({orac.risk_state})")
         elif orac.risk_state == "RISK_OFF":
             a.add(SYSTEMIC, RED if conf >= P.ORACAI_MIN_CONFIDENCE else YELLOW,
@@ -117,15 +123,18 @@ def _leverage(a, e):
         where = f"{loan.protocol} ({loan.chain})"
         d = loan.drop_to_liquidation
         lvl = GREEN
-        if loan.health < P.HF_FLOOR or (d is not None and d < P.LIQ_DROP_RED):
+        if loan.health < P.hf_act_level() or (d is not None and d < P.LIQ_DROP_RED):
             lvl = RED
         elif loan.health < P.HF_WATCH or (d is not None and d < P.LIQ_DROP_YELLOW):
             lvl = YELLOW
         tail = (f"ликвидация при падении крипты на ~{pct(d)}" if d is not None and d < 0.95
                 else "падение цены почти не опасно")
-        below = loan.health < P.HF_FLOOR
-        hf = f"{loan.health:.3f}" if below else f"{loan.health:.2f}"
-        rule = f" (ниже порога {P.HF_FLOOR:.2f} — гасить)" if below else ""
+        act = P.hf_act_level()
+        below = loan.health < act
+        hf = f"{loan.health:.3f}" if loan.health < P.HF_WATCH else f"{loan.health:.2f}"
+        rule = (f" (ниже {act:.3f} — гасить)" if below
+                else f" (в допуске {P.HF_TOLERANCE:.0%} от {P.HF_FLOOR:.2f} — наблюдаем)"
+                if loan.health < P.HF_FLOOR else "")
         a.add(LEVERAGE, lvl, f"{where}: HF {hf}{rule}, долг ${loan.debt_usd:,.0f} — {tail}", e.name)
     if e.leverage >= P.LEVERAGE_YELLOW:
         a.add(LEVERAGE, YELLOW, f"Плечо {e.leverage:.2f}× (активы ${e.gross_usd:,.0f} при своих ${e.net_usd:,.0f})", e.name)

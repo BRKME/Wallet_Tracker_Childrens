@@ -31,7 +31,7 @@ def tilted_targets(wallet: str, orac) -> tuple[dict, str]:
         return t, "наклона нет: данных OracAI нет или они устарели"
     conf = orac.confidence or 0
     if conf < P.ORACAI_MIN_CONFIDENCE:
-        return t, f"наклона нет: уверенность OracAI {conf:.0%} < {P.ORACAI_MIN_CONFIDENCE:.0%}"
+        return t, f"базовые цели: уверенность OracAI {conf:.0%} < {P.ORACAI_MIN_CONFIDENCE:.0%}, не ориентируемся"
     if orac.risk_off or orac.regime == "BEAR":
         return _shift_to_stable(t, P.TILT_RISK_OFF_STABLE), \
             f"OracAI {orac.regime}/{orac.risk_state}: +{P.TILT_RISK_OFF_STABLE:.0%} в стейблы"
@@ -98,13 +98,13 @@ def suggest(e, orac, whitelist: set, alt_rank: list | None = None,
 
     # 1. Займы: правило HF ≥ HF_FLOOR
     for loan in e.loans:
-        if loan.health >= P.HF_FLOOR:
+        if loan.health >= P.hf_act_level():  # допуск: 1.498 — это «те же 1.5»
             continue
         r = repay_amount(loan.health, loan.collateral_usd, loan.debt_usd)
         rc = deleverage_amount(loan.health, loan.collateral_usd, loan.debt_usd)
         if r > 0:
             out.append(Suggestion(e.name, "REPAY", f"{loan.protocol} ({loan.chain})", max(r, 1.0),
-                                  f"HF {loan.health:.3f} < {P.HF_FLOOR:.2f} → {P.HF_RESTORE:.2f};"
+                                  f"HF {loan.health:.3f} < {P.hf_act_level():.3f} → {P.HF_RESTORE:.2f};"
                                   f" стейблами ~${r:,.0f} или выводом залога ~${rc:,.0f}"))
 
     # 2. Точечные лимиты (виртуально применяем, чтобы классы считались после них)
