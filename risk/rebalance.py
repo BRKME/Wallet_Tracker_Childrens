@@ -109,6 +109,7 @@ def suggest(e, orac, whitelist: set, alt_rank: list | None = None,
 
     # 2. Точечные лимиты (виртуально применяем, чтобы классы считались после них)
     cls_usd = {k: e.by_class.get(k, 0.0) for k in CLASS_LABELS}
+    excluded = P.excluded_alts(e.name)
     for asset, usd in e.by_asset.items():
         if usd <= 0:
             continue
@@ -116,6 +117,8 @@ def suggest(e, orac, whitelist: set, alt_rank: list | None = None,
         cut, why = 0.0, ""
         if cls == ALT and asset.lower() not in whitelist:
             cut, why = usd, "вне белого списка"
+        elif cls == ALT and asset in excluded:
+            cut, why = usd, f"исключён из плана кошелька {e.name}"
         if cut >= P.MIN_TRADE_USD:
             out.append(Suggestion(e.name, "SELL", asset, cut, f"{why} ({usd / net:.0%})"))
             cls_usd[cls] -= cut
@@ -159,7 +162,10 @@ def _mom(r) -> str:
 def _alt_trades(e, drift, usd, why, alt_rank, whitelist) -> list:
     """Докупка — поровну в ALTS_TO_BUY сильнейших; продажа — с самых слабых из имеющихся."""
     if drift < 0:
-        top = alt_rank[: P.ALTS_TO_BUY]
+        excluded = P.excluded_alts(e.name)
+        top = [r for r in alt_rank if r.asset not in excluded][: P.ALTS_TO_BUY]
+        if not top:
+            return [Suggestion(e.name, "BUY", "Альткоины", usd, why)]
         part = usd / len(top)
         if part < P.MIN_TRADE_USD:
             top, part = top[:1], usd
@@ -167,7 +173,8 @@ def _alt_trades(e, drift, usd, why, alt_rank, whitelist) -> list:
                            f"альты {why}; сильнейший в белом списке ({_mom(r)})") for r in top]
     order = {r.asset: i for i, r in enumerate(alt_rank)}
     held = [(a, v) for a, v in e.by_asset.items()
-            if v > 0 and asset_class(a) == ALT and a.lower() in whitelist]
+            if v > 0 and asset_class(a) == ALT and a.lower() in whitelist
+            and a not in P.excluded_alts(e.name)]  # исключённые уже продаются в шаге 2
     # Без графика — считаем самым слабым: продаём первым
     held.sort(key=lambda av: -order.get(av[0], len(order)))
     out, left = [], usd
