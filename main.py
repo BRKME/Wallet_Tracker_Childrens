@@ -58,6 +58,46 @@ def canonical_symbol(symbol: str) -> str:
 
 HISTORY_FILE = STATE_DIR / "history.json"
 
+# ============ СОСТАВ ПОРТФЕЛЯ: ЕДИНАЯ ПОЛИТИКА С 💎Atlas (08.11) ============
+# Состав (строка 💼) считается так же, как в риск-отчёте: позиции DeBank
+# с вычетом долга, без дублей эндпоинтов, классификация risk.assets.
+# Старый скрейпер ниже оставлен только как запасной путь для итоговой суммы.
+
+POSITIONS_MAX_MISMATCH = 0.05   # расхождение с балансом DeBank, выше — составу не верим
+
+
+def snapshot_tokens(snap) -> list:
+    """Позиции снимка -> токены со знаком (долг отрицательный)."""
+    return [{"symbol": h.symbol, "value": h.value, "chain": h.chain, "source": h.source}
+            for h in snap.holdings]
+
+
+def positions_reliable(snap) -> bool:
+    if snap is None or snap.errors or not snap.reported_total or snap.reported_total <= 0:
+        return False
+    return abs(snap.net_usd / snap.reported_total - 1) <= POSITIONS_MAX_MISMATCH
+
+
+def format_assets(tokens: list) -> str:
+    """Доли от ЧИСТОЙ стоимости: «BTC 75% · ... · ETH -7%» (минус — долг в этом активе)."""
+    from risk.assets import canonical_symbol as atlas_canon
+    by_symbol = {}
+    for t in tokens or []:
+        val = t.get("value", 0) or 0
+        if not val:
+            continue
+        sym = atlas_canon(t.get("symbol", "???"), t.get("chain", ""))
+        by_symbol[sym] = by_symbol.get(sym, 0) + val
+    total = sum(by_symbol.values())
+    if total <= 0:
+        return ""
+    parts = []
+    for sym, val in sorted(by_symbol.items(), key=lambda kv: -abs(kv[1]))[:6]:
+        pct = round(val / total * 100)
+        if abs(pct) >= 1:
+            parts.append(f"{sym} {pct}%")
+    return " · ".join(parts)
+
 
 class WalletTracker:
     def __init__(self):
@@ -525,6 +565,23 @@ class WalletTracker:
             pass
         return 0
     
+    async def get_evm_positions(self, name: str, address: str) -> dict:
+        """Позиции по единой политике 💎Atlas; при сбое — старый путь (только сумма)."""
+        try:
+            from risk.positions import scrape_debank
+            snap = await scrape_debank(name, address)
+        except Exception as e:  # noqa: BLE001
+            logger.warning(f"{name}: разбор позиций не удался ({e}) — запасной путь")
+            snap = None
+        if positions_reliable(snap):
+            return {"total_usd": snap.reported_total, "tokens": snapshot_tokens(snap), "net": True}
+        if snap is not None:
+            logger.warning(f"{name}: позиции не сходятся с балансом DeBank "
+                           f"({snap.net_usd:,.0f} vs {snap.reported_total}) — состав не покажем")
+        data = await self.get_wallet_balance(address)
+        data["net"] = False
+        return data
+
     async def get_wallet_balance(self, address: str) -> dict:
         """Get wallet balance, trying multiple sources"""
         # Try scraping DeBank directly (most accurate for total)
@@ -777,26 +834,6 @@ class WalletTracker:
             return " · ".join(parts) if parts else ""
         
         # Helper to format asset split for a wallet
-        def format_assets(tokens):
-            if not tokens:
-                return ""
-            by_symbol = {}
-            for t in tokens:
-                sym = canonical_symbol(t.get("symbol", "???"))
-                val = t.get("value", 0) or 0
-                if val > 0:
-                    by_symbol[sym] = by_symbol.get(sym, 0) + val
-            total_val = sum(by_symbol.values())
-            if total_val <= 0:
-                return ""
-            sorted_assets = sorted(by_symbol.items(), key=lambda x: -x[1])
-            parts = []
-            for sym, val in sorted_assets[:6]:
-                pct = val / total_val * 100
-                if pct >= 1:
-                    parts.append(f"{sym} {pct:.0f}%")
-            return " · ".join(parts)
-        
         # Per-wallet breakdown — plan wallets first
         for name, data in plan_wallets.items():
             wallet_plan = data.get('plan_usd', 0)
@@ -827,7 +864,7 @@ class WalletTracker:
                 msg += f"├ {dynamics}\n"
 
             # Asset split
-            assets = format_assets(data.get('tokens', []))
+            assets = format_assets(data.get('tokens', [])) if data.get('tokens_net') else ""
             if assets:
                 msg += f"└ 💼 {assets}\n"
             else:
@@ -850,7 +887,7 @@ class WalletTracker:
                 msg += f"├ {dynamics}\n"
             
             # Asset split
-            assets = format_assets(data.get('tokens', []))
+            assets = format_assets(data.get('tokens', [])) if data.get('tokens_net') else ""
             if assets:
                 msg += f"└ 💼 {assets}\n"
             else:
@@ -954,7 +991,7 @@ class WalletTracker:
                 evm_addr = address_or_dict.get("evm")
                 if evm_addr:
                     logger.info(f"   ├ EVM: {evm_addr[:8]}...")
-                    evm_data = await self.get_wallet_balance(evm_addr)
+                    evm_data = await self.get_evm_positions(name, evm_addr)
                     wallet_total += evm_data["total_usd"]
                     wallet_tokens.extend(evm_data.get("tokens", []))
                 
@@ -979,7 +1016,8 @@ class WalletTracker:
                     "addresses": address_or_dict,
                     "total_usd": wallet_total,
                     "plan_usd": wallet_plan,
-                    "tokens": wallet_tokens
+                    "tokens": wallet_tokens,
+                    "tokens_net": evm_data.get("net", False) if evm_addr else True,
                 }
                 total_usd += wallet_total
                 all_tokens.extend(wallet_tokens)
@@ -990,14 +1028,15 @@ class WalletTracker:
             else:
                 address = address_or_dict
                 logger.info(f"📊 Fetching {name} ({address[:8]}...)")
-                data = await self.get_wallet_balance(address)
+                data = await self.get_evm_positions(name, address)
                 
                 wallet_plan = get_plan_for_wallet(name, current_month)
                 wallet_details[name] = {
                     "address": address,
                     "total_usd": data["total_usd"],
                     "plan_usd": wallet_plan,
-                    "tokens": data.get("tokens", [])
+                    "tokens": data.get("tokens", []),
+                    "tokens_net": data.get("net", False),
                 }
                 total_usd += data["total_usd"]
                 all_tokens.extend(data.get("tokens", []))
