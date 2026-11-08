@@ -31,6 +31,15 @@
 | Privacy Hedge | ZEC |
 | Stablecoins | USDT, USDC, DAI, BUSD |
 
+## 🛡 Риск-отчёт (воскресенье 11:00 MSK)
+
+Отдельное сообщение: системный риск (режим рынка из [OracAI](https://github.com/BRKME/OracAI)),
+займы и расстояние до ликвидации, взломы протоколов и эмитентов обёрток (DefiLlama),
+концентрация, тренды монет портфеля по дневным графикам и предложения по ребалансировке.
+Подробно — [docs/RISK_REPORT.md](docs/RISK_REPORT.md), цели и пороги — `risk/policy.py`.
+
+Опциональный секрет `ANTHROPIC_API_KEY` добавляет комментарий Claude с проверкой свежих новостей.
+
 ## Настройка
 
 ### Secrets (GitHub → Settings → Secrets)

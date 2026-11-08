@@ -1,0 +1,175 @@
+{
+ "token_cache_balance_list": [
+  {
+   "symbol": "ETH",
+   "optimized_symbol": "ETH",
+   "chain": "op",
+   "amount": 3.107733149e-09,
+   "price": 2250.18,
+   "id": "op",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ETH",
+   "optimized_symbol": "ETH",
+   "chain": "arb",
+   "amount": 7.22234e-06,
+   "price": 2249.9,
+   "id": "arb",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ZEC",
+   "optimized_symbol": "ZEC",
+   "chain": "bsc",
+   "amount": 0.913692634437432,
+   "price": 1231.11,
+   "id": "0x1ba42e5193dfa8b03d15dd1b86a3113bbbef8eeb",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "NEAR",
+   "optimized_symbol": "NEAR",
+   "chain": "bsc",
+   "amount": 50.36474110283475,
+   "price": 3.686,
+   "id": "0x1fa4a73a3f0133f0025378af00236f3abdee5d63",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "USDT",
+   "optimized_symbol": "USDT",
+   "chain": "bsc",
+   "amount": 876.5884467373215,
+   "price": 0.99852,
+   "id": "0x55d398326f99059ff775485246999027b3197955",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "INJ",
+   "optimized_symbol": "INJ",
+   "chain": "bsc",
+   "amount": 9.045616104e-09,
+   "price": 8.002,
+   "id": "0xa2b726b1145a4773f68593cf171187d8ebe4d495",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "WBNB",
+   "optimized_symbol": "WBNB",
+   "chain": "bsc",
+   "amount": 1e-07,
+   "price": 692.44,
+   "id": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "UNI",
+   "optimized_symbol": "UNI",
+   "chain": "bsc",
+   "amount": 0.16344308917293413,
+   "price": 6.817,
+   "id": "0xbf5140a22578168fd562dccf235e5d43a02ce9b1",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "MPC",
+   "optimized_symbol": "MPC",
+   "chain": "bsc",
+   "amount": 5849.29,
+   "price": 1.49990533437366e-06,
+   "id": "0xd6bb010019c9d3ea177e6d2e9af7938c6e53da55",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "BNB",
+   "optimized_symbol": "BNB",
+   "chain": "bsc",
+   "amount": 0.052189041400000004,
+   "price": 692.44,
+   "id": "bsc",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "HEX",
+   "optimized_symbol": "HEX",
+   "chain": "eth",
+   "amount": 1,
+   "price": 0.0005235645578465359,
+   "id": "0x2b591e99afe9f32eaa6214f7b7629768c40eeb39",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "XVG",
+   "optimized_symbol": "XVG",
+   "chain": "eth",
+   "amount": 1e-18,
+   "price": 1.9452714434568416e-05,
+   "id": "0x85614a474dbeed440d5bbdb8ac50b0f22367f997",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "ZRX",
+   "optimized_symbol": "ZRX",
+   "chain": "eth",
+   "amount": 9.868743629e-09,
+   "price": 0.0918,
+   "id": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "WAVAX",
+   "optimized_symbol": "WAVAX",
+   "chain": "avax",
+   "amount": 6.3784e-06,
+   "price": 8.283,
+   "id": "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "AVAX",
+   "optimized_symbol": "AVAX",
+   "chain": "avax",
+   "amount": 4.454745795362e-06,
+   "price": 8.283,
+   "id": "avax",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "WETH",
+   "optimized_symbol": "WETH",
+   "chain": "base",
+   "amount": 4e-18,
+   "price": 2249.9,
+   "id": "0x4200000000000000000000000000000000000006",
+   "is_verified": true,
+   "is_core": true
+  },
+  {
+   "symbol": "HYPE",
+   "optimized_symbol": "HYPE",
+   "chain": "hyper",
+   "amount": 6.581737370481736,
+   "price": 77.859,
+   "id": "hyper",
+   "is_verified": true,
+   "is_core": true
+  }
+ ],
+ "portfolio_project_list": []
+}
